@@ -463,31 +463,39 @@
         .text-primary {
             color: var(--primary) !important;
         }
+
         .bg-primary {
             background-color: var(--primary) !important;
         }
+
         .border-primary {
             border-color: var(--primary) !important;
         }
+
         .btn-primary {
             background-color: var(--primary) !important;
             border-color: var(--primary) !important;
             color: #000000 !important;
         }
-        .btn-primary:hover, .btn-primary:focus {
+
+        .btn-primary:hover,
+        .btn-primary:focus {
             background-color: #0096cb !important;
             border-color: #0096cb !important;
             color: #ffffff !important;
         }
+
         .btn-outline-primary {
             color: var(--primary) !important;
             border-color: var(--primary) !important;
         }
+
         .btn-outline-primary:hover {
             background-color: var(--primary) !important;
             border-color: var(--primary) !important;
             color: #000000 !important;
         }
+
         .badge.bg-primary.bg-opacity-10 {
             background-color: rgba(1, 190, 254, 0.1) !important;
             color: var(--primary) !important;
@@ -608,6 +616,7 @@
                 transform: scale(0.3) rotate(-10deg);
                 opacity: 0;
             }
+
             100% {
                 transform: scale(1) rotate(0deg);
                 opacity: 1;
@@ -619,6 +628,7 @@
                 transform: translateY(20px);
                 opacity: 0;
             }
+
             100% {
                 transform: translateY(0);
                 opacity: 1;
@@ -629,6 +639,7 @@
             0% {
                 opacity: 0;
             }
+
             100% {
                 opacity: 1;
             }
@@ -639,6 +650,7 @@
                 width: 0;
                 opacity: 0;
             }
+
             100% {
                 width: 60px;
                 opacity: 1;
@@ -649,6 +661,7 @@
             0% {
                 transform: translateX(-100%);
             }
+
             100% {
                 transform: translateX(0);
             }
@@ -662,7 +675,7 @@
     <div id="splashScreen" class="splash-screen">
         <div class="splash-content">
             <div class="splash-logo-container">
-                <img src="icon.jpg" alt="IQRA'A Library Logo" class="splash-logo">
+                <img src="idcon.jpg" alt="IQRA'A Library Logo" class="splash-logo">
             </div>
             <h1 class="splash-title">IQRA'A Library</h1>
             <div class="splash-divider"></div>
@@ -679,7 +692,9 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#"><img src="icon.jpg" alt="Logo" class="d-inline-block align-top me-2" style="height: 35px; width: 35px; object-fit: contain; border-radius: 6px;">IQRA'A Library</a>
+            <a class="navbar-brand d-flex align-items-center" href="#"><img src="idcon.jpg" alt="Logo"
+                    class="d-inline-block align-top me-2"
+                    style="height: 35px; width: 35px; object-fit: contain; border-radius: 6px;">IQRA'A Library</a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav"><i class="bi bi-list fs-1 text-primary"></i></button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
@@ -691,18 +706,21 @@
                                 class="bi bi-book-fill me-1"></i> Books</a></li>
                     <li class="nav-item"><a class="nav-link" id="nav-members" onclick="showPage('members')"><i
                                 class="bi bi-mortarboard-fill me-1"></i> Students</a></li>
-                    <li class="nav-item"><a class="nav-link" id="nav-transactions" onclick="showPage('transactions')"><i class="bi bi-shield-lock-fill me-1"></i> Admin</a></li>
+                    <li class="nav-item"><a class="nav-link" id="nav-transactions" onclick="showPage('transactions')"><i
+                                class="bi bi-shield-lock-fill me-1"></i> Admin</a></li>
                     <li class="nav-item"><a class="nav-link" id="nav-reports" onclick="showPage('reports')"><i
                                 class="bi bi-bar-chart-fill me-1"></i> Reports</a></li>
-                    <li class="nav-item d-none" id="installNavbarItem"><a class="nav-link text-success fw-bold" href="#" onclick="triggerPwaInstall(); return false;"><i class="bi bi-download me-1"></i> Install App</a></li>
+                    <li class="nav-item d-none" id="installNavbarItem"><a class="nav-link text-success fw-bold" href="#"
+                            onclick="triggerPwaInstall(); return false;"><i class="bi bi-download me-1"></i> Install
+                            App</a></li>
 
                 </ul>
             </div>
         </div>
     </nav>
- 
+
     <div class="container pb-5">
- 
+
         <!-- 1. HOME DASHBOARD -->
         <div id="dashboard" class="page-section">
             <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
@@ -711,9 +729,10 @@
                     class="badge bg-primary bg-opacity-10 text-primary border border-primary rounded-pill px-3 py-2 fw-bold"><i
                         class="bi bi-lightning-charge-fill me-1"></i>Live Data</span>
             </div>
- 
+
             <!-- PWA Install Banner -->
-            <div id="pwaInstallBanner" class="alert alert-success d-none border-0 shadow-sm rounded-4 p-3 mb-4 d-flex justify-content-between align-items-center">
+            <div id="pwaInstallBanner"
+                class="alert alert-success d-none border-0 shadow-sm rounded-4 p-3 mb-4 d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center gap-3">
                     <div class="fs-1 text-success"><i class="bi bi-phone-vibrate"></i></div>
                     <div>
@@ -834,7 +853,8 @@
                 <h4 class="section-title mb-0">Book Management</h4>
                 <div class="d-flex header-actions">
                     <button class="btn btn-outline-primary rounded-pill fw-bold"
-                        onclick="downloadPDF('booksPrintArea', 'Books_List')"><i class="bi bi-file-pdf-fill"></i> PDF Download</button>
+                        onclick="downloadPDF('booksPrintArea', 'Books_List')"><i class="bi bi-file-pdf-fill"></i> PDF
+                        Download</button>
                 </div>
             </div>
 
@@ -925,13 +945,16 @@
                 <div class="col-md-6 col-lg-6">
                     <div class="glass-panel analytics-card p-4 h-100 d-flex flex-column justify-content-between">
                         <div class="d-flex align-items-start gap-3 mb-3">
-                            <div class="icon-box icon-blue" style="min-width: 60px; height: 60px; border-radius: 16px;"><i class="bi bi-book-fill"></i></div>
+                            <div class="icon-box icon-blue" style="min-width: 60px; height: 60px; border-radius: 16px;">
+                                <i class="bi bi-book-fill"></i>
+                            </div>
                             <div>
                                 <h5 class="fw-bold mb-1">Book Management</h5>
                                 <p class="small text-muted mb-0">ആപ്പിലേക്ക് പുതിയ ബുക്ക് ചേർക്കുക</p>
                             </div>
                         </div>
-                        <button class="btn btn-modern btn-gradient-primary w-100 fw-bold py-2 mt-auto" data-bs-toggle="modal" data-bs-target="#addBookModal">
+                        <button class="btn btn-modern btn-gradient-primary w-100 fw-bold py-2 mt-auto"
+                            data-bs-toggle="modal" data-bs-target="#addBookModal">
                             <i class="bi bi-plus-lg me-1"></i> പുതിയ Book Add ചെയ്യുക
                         </button>
                     </div>
@@ -939,13 +962,17 @@
                 <div class="col-md-6 col-lg-6">
                     <div class="glass-panel analytics-card p-4 h-100 d-flex flex-column justify-content-between">
                         <div class="d-flex align-items-start gap-3 mb-3">
-                            <div class="icon-box icon-green" style="min-width: 60px; height: 60px; border-radius: 16px;"><i class="bi bi-person-plus-fill"></i></div>
+                            <div class="icon-box icon-green"
+                                style="min-width: 60px; height: 60px; border-radius: 16px;"><i
+                                    class="bi bi-person-plus-fill"></i></div>
                             <div>
                                 <h5 class="fw-bold mb-1">Student Registration</h5>
-                                <p class="small text-muted mb-0">പുതിയ വിദ്യാർത്ഥിയെ രജിസ്റ്റർ ചെയ്യുക / എഡിറ്റ് ചെയ്യുക</p>
+                                <p class="small text-muted mb-0">പുതിയ വിദ്യാർത്ഥിയെ രജിസ്റ്റർ ചെയ്യുക / എഡിറ്റ് ചെയ്യുക
+                                </p>
                             </div>
                         </div>
-                        <button class="btn btn-modern btn-gradient-success w-100 fw-bold py-2 mt-auto" data-bs-toggle="modal" data-bs-target="#addMemberModal">
+                        <button class="btn btn-modern btn-gradient-success w-100 fw-bold py-2 mt-auto"
+                            data-bs-toggle="modal" data-bs-target="#addMemberModal">
                             <i class="bi bi-person-plus-fill me-1"></i> Student Add/Edit
                         </button>
                     </div>
@@ -1755,11 +1782,11 @@
             let btn = document.getElementById('saveSetBtn');
             btn.disabled = true;
             btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Saving...';
-            
+
             let maxDays = document.getElementById('setDays').value;
             let fine = document.getElementById('setFine').value;
             let pass = document.getElementById('setPass').value;
-            
+
             google.script.run
                 .withSuccessHandler(res => {
                     btn.disabled = false;
@@ -1806,7 +1833,7 @@
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            
+
             // Show the install UI elements
             const banner = document.getElementById('pwaInstallBanner');
             const navItem = document.getElementById('installNavbarItem');
