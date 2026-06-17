@@ -700,6 +700,141 @@
                 transform: translateX(0);
             }
         }
+
+        /* PWA Install Banner styling */
+        .pwa-install-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border: 1px solid rgba(1, 190, 254, 0.15);
+            border-left: 5px solid var(--primary);
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(1, 190, 254, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pwa-install-banner:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(1, 190, 254, 0.12);
+            border-color: rgba(1, 190, 254, 0.3);
+        }
+
+        .pwa-install-banner::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(1, 190, 254, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .pwa-install-banner .app-icon {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease;
+        }
+
+        .pwa-install-banner:hover .app-icon {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .pwa-install-banner .app-title {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 2px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .pwa-install-banner .app-subtitle {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0;
+            font-family: 'Noto Sans Malayalam', sans-serif;
+        }
+
+        .pwa-install-banner .install-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, #00a0d6 100%);
+            color: #000000 !important;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 24px;
+            box-shadow: 0 4px 15px rgba(1, 190, 254, 0.3);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .pwa-install-banner .install-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(1, 190, 254, 0.5);
+            background: #ffffff;
+            color: #000000 !important;
+        }
+
+        /* Responsive Mobile View for Install Banner */
+        @media (max-width: 768px) {
+            .pwa-install-banner {
+                padding: 12px 16px;
+                border-radius: 16px;
+                background: linear-gradient(135deg, #090d16 0%, #111827 100%);
+            }
+
+            .pwa-install-banner .app-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: 12px;
+            }
+
+            .pwa-install-banner .app-title {
+                font-size: 0.95rem;
+                margin-bottom: 0px;
+            }
+
+            .pwa-install-banner .app-subtitle {
+                font-size: 0.72rem;
+                color: #cbd5e1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 180px;
+            }
+
+            .pwa-install-banner .install-btn {
+                font-size: 0.78rem;
+                padding: 8px 16px;
+                width: auto !important;
+            }
+            
+            .pwa-install-banner .banner-container {
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                text-align: left !important;
+                gap: 10px !important;
+            }
+
+            .pwa-install-banner .details-container {
+                flex-direction: row !important;
+                text-align: left !important;
+                align-items: center !important;
+                gap: 12px !important;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .pwa-install-banner .app-subtitle {
+                max-width: 120px;
+            }
+        }
     </style>
 </head>
 
@@ -765,18 +900,21 @@
             </div>
 
             <!-- PWA Install Banner -->
-            <div id="pwaInstallBanner"
-                class="alert alert-success d-none border-0 shadow-sm rounded-4 p-3 mb-4 d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="fs-1 text-success"><i class="bi bi-phone-vibrate"></i></div>
-                    <div>
-                        <h6 class="fw-bold mb-1">Install IQRA'A Library App</h6>
-                        <p class="small text-muted mb-0">ആപ്പായി ഇൻസ്റ്റാൾ ചെയ്ത് വേഗത്തിൽ ഉപയോഗിക്കൂ!</p>
+            <div id="pwaInstallBanner" class="d-none pwa-install-banner mb-4">
+                <div class="banner-container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                    <div class="details-container d-flex align-items-center gap-3 flex-column flex-md-row text-center text-md-start">
+                        <div class="icon-wrapper">
+                            <img src="idcon.jpg" alt="IQRA'A Library Logo" class="app-icon">
+                        </div>
+                        <div>
+                            <h6 class="app-title">IQRA'A Library App</h6>
+                            <p class="app-subtitle">ആപ്പായി ഇൻസ്റ്റാൾ ചെയ്ത് വേഗത്തിൽ ഉപയോഗിക്കൂ!</p>
+                        </div>
                     </div>
+                    <button class="btn install-btn" onclick="triggerPwaInstall()">
+                        <i class="bi bi-download me-1"></i> Install Now
+                    </button>
                 </div>
-                <button class="btn btn-success rounded-pill px-4 fw-bold" onclick="triggerPwaInstall()">
-                    <i class="bi bi-download me-1"></i> Install
-                </button>
             </div>
 
             <!-- Stats (Mobile 2 per row using col-6) -->
@@ -1316,33 +1454,41 @@
                 <div class="modal-body">
                     <form id="addBookForm" onsubmit="submitNewBook(event)">
                         <div class="row g-3">
-                            <div class="col-md-6"><input type="text" class="form-control" id="bkId"
-                                    placeholder="Book ID" required></div>
-                            <div class="col-md-6"><input type="text" class="form-control" id="bkRack"
-                                    placeholder="Rack No"></div>
-                            <div class="col-12"><input type="text" class="form-control" id="bkTitle"
-                                    placeholder="Book Title" required></div>
-                            <div class="col-12"><input type="text" class="form-control" id="bkAuthor"
-                                    placeholder="Author" required></div>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <select class="form-select" id="bkCategory" required onchange="suggestNextBookId(this.value)" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">
-                                        <option value="" disabled selected>Category Select</option>
-                                    </select>
-                                    <button class="btn btn-outline-primary" type="button" onclick="promptAddNewCategory()" style="border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 12px; border-bottom-right-radius: 12px;" title="Add New Category">
-                                        <i class="bi bi-plus-lg"></i>
-                                    </button>
-                                </div>
+                            <div class="col-12">
+                                <label class="small fw-bold text-muted mb-1">Category Select</label>
+                                <select class="form-select" id="bkCategory" required onchange="suggestNextBookId(this.value)">
+                                    <option value="" disabled selected>Category Select</option>
+                                </select>
                             </div>
-                            <div class="col-md-6"><input type="number" class="form-control" id="bkTotal"
-                                    placeholder="Total Copies (Stock)" required min="1"></div>
-                            <div class="col-12"><select class="form-select" id="bkType">
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-muted mb-1">Book ID (Auto-suggested)</label>
+                                <input type="text" class="form-control fw-bold" id="bkId" placeholder="Book ID" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-muted mb-1">Rack No</label>
+                                <input type="text" class="form-control" id="bkRack" placeholder="Rack No">
+                            </div>
+                            <div class="col-12">
+                                <label class="small fw-bold text-muted mb-1">Book Title</label>
+                                <input type="text" class="form-control" id="bkTitle" placeholder="Book Title" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="small fw-bold text-muted mb-1">Author</label>
+                                <input type="text" class="form-control" id="bkAuthor" placeholder="Author" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-muted mb-1">Total Copies (Stock)</label>
+                                <input type="number" class="form-control" id="bkTotal" placeholder="Total Copies (Stock)" required min="1">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-muted mb-1">Type</label>
+                                <select class="form-select" id="bkType">
                                     <option value="Issuable">Issuable</option>
                                     <option value="Reference">Reference Only</option>
-                                </select></div>
+                                </select>
+                            </div>
                         </div>
-                        <div class="mt-4"><button type="submit" class="btn btn-modern btn-gradient-primary w-100"
-                                id="saveBtn">Save Book</button></div>
+                        <div class="mt-4"><button type="submit" class="btn btn-modern btn-gradient-primary w-100" id="saveBtn">Save Book</button></div>
                     </form>
                 </div>
             </div>
@@ -1582,6 +1728,7 @@
         let activeCategories = [];
         let allBooksCache = [];
         let cachedCategoriesWithPrefixes = [];
+        let dashboardCategories = [];
 
         function initApp() {
             // Load dashboard data immediately in the background
@@ -1589,6 +1736,7 @@
             // Cache books list on startup for ID auto-suggestions
             google.script.run.withSuccessHandler(books => {
                 allBooksCache = books;
+                refreshCategorySelects();
             }).getAllBooks();
             // Fetch settings on startup to cache the Admin password
             google.script.run.withSuccessHandler(s => {
@@ -1712,7 +1860,8 @@
             let tbHtml = ''; data.topBooksArr.forEach((b, i) => tbHtml += `<tr><td><i class="bi bi-${i + 1}-circle-fill text-primary fs-5"></i></td><td class="fw-bold">${b.title}</td><td><span class="badge bg-primary rounded-pill">${b.count}</span></td></tr>`); document.getElementById('dashTopBooks').innerHTML = tbHtml || '<tr><td colspan="3">No data</td></tr>';
             
             if (data.categories) {
-                populateCategoryDropdown(Object.keys(data.categories));
+                dashboardCategories = Object.keys(data.categories);
+                refreshCategorySelects();
             }
         }
 
@@ -1760,59 +1909,56 @@
           </tr>`;
                 });
                 tbody.innerHTML = html; searchBooks();
-                if (cats.length > 0) populateCategoryDropdown(cats);
+                refreshCategorySelects();
                 toggleAdminUIElements();
             }).getAllBooks();
         }
-        function populateCategoryDropdown(categoriesArray) {
-            let uniqueCats = [...new Set(categoriesArray)].map(c => c ? c.toString().trim() : "").filter(c => c !== "").sort();
+        function refreshCategorySelects() {
+            let bookCats = [];
+            if (Array.isArray(allBooksCache) && allBooksCache.length > 0) {
+                bookCats = allBooksCache.map(b => b.category);
+            } else if (Array.isArray(dashboardCategories)) {
+                bookCats = dashboardCategories;
+            }
+            let prefixCats = [];
+            if (Array.isArray(cachedCategoriesWithPrefixes)) {
+                prefixCats = cachedCategoriesWithPrefixes.map(c => c.category);
+            }
+            let merged = [...bookCats, ...prefixCats];
+            let uniqueCats = [...new Set(merged)].map(c => c ? c.toString().trim() : "").filter(c => c !== "").sort();
             activeCategories = uniqueCats;
             
+            // Populate the Add Book Category select
             let selectEl = document.getElementById('bkCategory');
-            if (!selectEl) return;
-            
-            let currentVal = selectEl.value;
-            selectEl.innerHTML = '<option value="" disabled selected>Category Select</option>';
-            
-            uniqueCats.forEach(cat => {
-                let opt = document.createElement('option');
-                opt.value = cat;
-                opt.textContent = cat;
-                selectEl.appendChild(opt);
-            });
-            
-            if (currentVal && uniqueCats.includes(currentVal)) {
-                selectEl.value = currentVal;
+            if (selectEl) {
+                let currentVal = selectEl.value;
+                selectEl.innerHTML = '<option value="" disabled selected>Category Select</option>';
+                uniqueCats.forEach(cat => {
+                    let opt = document.createElement('option');
+                    opt.value = cat;
+                    opt.textContent = cat;
+                    selectEl.appendChild(opt);
+                });
+                if (currentVal && uniqueCats.includes(currentVal)) {
+                    selectEl.value = currentVal;
+                }
             }
-        }
-
-        function promptAddNewCategory() {
-            Swal.fire({
-                title: 'പുതിയ Category ചേർക്കുക',
-                input: 'text',
-                inputPlaceholder: 'Enter Category Name',
-                showCancelButton: true,
-                confirmButtonText: 'Add',
-                confirmButtonColor: '#01BEFE',
-                cancelButtonColor: '#6c757d',
-                preConfirm: (value) => {
-                    if (!value || value.trim() === "") {
-                        Swal.showValidationMessage('Category name cannot be empty!');
-                        return false;
-                    }
-                    return value.trim();
+            
+            // Populate the Edit Book Category select
+            let editSelectEl = document.getElementById('editBkCategory');
+            if (editSelectEl) {
+                let currentEditVal = editSelectEl.value;
+                editSelectEl.innerHTML = '<option value="" disabled selected>Category Select</option>';
+                uniqueCats.forEach(cat => {
+                    let opt = document.createElement('option');
+                    opt.value = cat;
+                    opt.textContent = cat;
+                    editSelectEl.appendChild(opt);
+                });
+                if (currentEditVal && uniqueCats.includes(currentEditVal)) {
+                    editSelectEl.value = currentEditVal;
                 }
-            }).then((result) => {
-                if (result.isConfirmed && result.value) {
-                    let newCat = result.value;
-                    if (!activeCategories.includes(newCat)) {
-                        activeCategories.push(newCat);
-                        populateCategoryDropdown(activeCategories);
-                    }
-                    document.getElementById('bkCategory').value = newCat;
-                    suggestNextBookId(newCat);
-                }
-            });
+            }
         }
 
         function suggestNextBookId(category) {
@@ -1899,8 +2045,7 @@
             google.script.run.withSuccessHandler(list => {
                 cachedCategoriesWithPrefixes = list || [];
                 
-                let cats = cachedCategoriesWithPrefixes.map(c => c.category);
-                populateCategoryDropdown(cats);
+                refreshCategorySelects();
                 
                 let tbody = document.getElementById('adminCategoriesBody');
                 if (!tbody) return;
@@ -1947,26 +2092,6 @@
                 .addCategoryAndPrefix(category, prefix);
         }
 
-        function populateEditCategoryDropdown(currentCategory) {
-            let selectEl = document.getElementById('editBkCategory');
-            if (!selectEl) return;
-            
-            let mergedCats = [...new Set([...activeCategories, ...cachedCategoriesWithPrefixes.map(c => c.category)])];
-            let uniqueCats = mergedCats.map(c => c ? c.toString().trim() : "").filter(c => c !== "").sort();
-            
-            selectEl.innerHTML = '';
-            uniqueCats.forEach(cat => {
-                let opt = document.createElement('option');
-                opt.value = cat;
-                opt.textContent = cat;
-                selectEl.appendChild(opt);
-            });
-            
-            if (currentCategory) {
-                selectEl.value = currentCategory;
-            }
-        }
-
         function openEditBookModal(bookId) {
             if (!allBooksCache || allBooksCache.length === 0) return;
             let book = allBooksCache.find(b => b.id.toString().trim() === bookId.toString().trim());
@@ -1977,7 +2102,7 @@
             document.getElementById('editBkTitle').value = book.title || "";
             document.getElementById('editBkAuthor').value = book.author || "";
             
-            populateEditCategoryDropdown(book.category);
+            document.getElementById('editBkCategory').value = book.category || "";
             
             document.getElementById('editBkTotal').value = book.total || 1;
             document.getElementById('editBkType').value = book.type || "Issuable";
