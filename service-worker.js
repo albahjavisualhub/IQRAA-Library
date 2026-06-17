@@ -1,4 +1,4 @@
-const CACHE_NAME = 'iqra-library-cache-v10';
+const CACHE_NAME = 'iqra-library-cache-v13';
 const ASSETS = [
   './',
   './index.html',
