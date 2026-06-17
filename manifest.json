@@ -1,6 +1,6 @@
 {
   "name": "IQRA'A Library",
-  "short_name": "IQRA'A",
+  "short_name": "IQRA'A Library",
   "description": "Premium Library Management System for IQRA'A College Library",
   "start_url": "./index.html",
   "display": "standalone",
@@ -9,16 +9,16 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "icon.jpg",
+      "src": "idcon.jpg",
       "type": "image/jpeg",
       "sizes": "192x192",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "icon.jpg",
+      "src": "idcon.jpg",
       "type": "image/jpeg",
       "sizes": "512x512",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
