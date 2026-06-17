@@ -1,6 +1,6 @@
 {
   "name": "IQRA'A Library",
-  "short_name": "IQRA'A Lib",
+  "short_name": "IQRA'A",
   "description": "Premium Library Management System for IQRA'A College Library",
   "start_url": "./index.html",
   "display": "standalone",
