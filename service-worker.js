@@ -1,9 +1,10 @@
-const CACHE_NAME = 'iqra-library-cache-v1';
+const CACHE_NAME = 'iqra-library-cache-v6';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './icon.jpg'
+  './idcon.png',
+  './idcon.jpg'
 ];
 
 // Install Service Worker
