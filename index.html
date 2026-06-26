@@ -1631,6 +1631,24 @@
             }
         }
 
+        function safeHideModal(modalId) {
+            let modalEl = document.getElementById(modalId);
+            if (!modalEl) return;
+            let modalInstance = bootstrap.Modal.getInstance(modalEl);
+            if (!modalInstance) {
+                modalInstance = new bootstrap.Modal(modalEl);
+            }
+            modalInstance.hide();
+            
+            // Fail-safe to ensure backdrop is removed and scroll is restored
+            setTimeout(() => {
+                document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+                document.body.classList.remove('modal-open');
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+            }, 350);
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             initApp();
 
@@ -2048,7 +2066,7 @@
                 .withSuccessHandler(res => {
                     btn.disabled = false;
                     btn.innerHTML = 'Update Book';
-                    bootstrap.Modal.getInstance(document.getElementById('editBookModal')).hide();
+                    safeHideModal('editBookModal');
                     loadBooksTable();
                     loadDashboardData();
                     showSuccess(res);
@@ -2084,7 +2102,7 @@
                 .withSuccessHandler(res => {
                     btn.disabled = false;
                     btn.innerHTML = 'Update Student';
-                    bootstrap.Modal.getInstance(document.getElementById('editMemberModal')).hide();
+                    safeHideModal('editMemberModal');
                     loadMembersTable();
                     loadDashboardData();
                     showSuccess(res);
@@ -2107,7 +2125,7 @@
                 .withSuccessHandler(res => {
                     btn.disabled = false;
                     btn.innerHTML = 'Save Book';
-                    bootstrap.Modal.getInstance(document.getElementById('addBookModal')).hide();
+                    safeHideModal('addBookModal');
                     document.getElementById('addBookForm').reset();
                     loadBooksTable();
                     loadDashboardData();
@@ -2177,7 +2195,7 @@
                 .withSuccessHandler(res => {
                     btn.disabled = false;
                     btn.innerHTML = 'Save Student';
-                    bootstrap.Modal.getInstance(document.getElementById('addMemberModal')).hide();
+                    safeHideModal('addMemberModal');
                     document.getElementById('addMemberForm').reset();
                     loadMembersTable();
                     loadDashboardData();
