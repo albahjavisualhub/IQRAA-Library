@@ -1,0 +1,2733 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base target="_top">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IQRA'A Library</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" href="idcon.png">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@400;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <!-- Standard SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Bootstrap JS Bundle -->
+    
+
+    <style>
+        :root {
+            --primary: #01BEFE;
+            --secondary: #000000;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #01BEFE;
+            --text-main: #000000;
+            --text-muted: #555555;
+        }
+
+        /* Clean Solid Background instead of Glass */
+        body {
+            background-color: #f1f5f9;
+            font-family: 'Poppins', 'Noto Sans Malayalam', sans-serif;
+            color: var(--text-main);
+        }
+
+        /* Clean Solid Panels */
+        .glass-panel {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-top: 5px solid var(--primary);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-panel:hover {
+            border-top-color: #000000;
+            box-shadow: 0 10px 30px rgba(1, 190, 254, 0.10);
+        }
+
+        .navbar-custom {
+            background: #ffffff;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.6rem;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            color: var(--text-muted) !important;
+            margin: 0 10px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary) !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .stat-card {
+            padding: 25px;
+            transition: 0.4s;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(1, 190, 254, 0.15);
+        }
+
+        .icon-box {
+            min-width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            background: #f8fafc;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .icon-blue {
+            color: var(--primary);
+        }
+
+        .icon-orange {
+            color: #ea580c;
+        }
+
+        .icon-green {
+            color: #16a34a;
+        }
+
+        .icon-pink {
+            color: #db2777;
+        }
+
+        .stat-info h6 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .stat-info h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .action-card {
+            padding: 40px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            border: 1px solid transparent;
+        }
+
+        .action-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary);
+        }
+
+        .action-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .btn-modern {
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+
+        .btn-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-gradient-primary {
+            background: linear-gradient(135deg, var(--primary), #000000);
+            color: white;
+        }
+
+        .btn-gradient-success {
+            background: linear-gradient(135deg, var(--success), #34d399);
+            color: white;
+        }
+
+        .btn-gradient-warning {
+            background: linear-gradient(135deg, var(--warning), #fbbf24);
+            color: white;
+        }
+
+        .btn-gradient-info {
+            background: linear-gradient(135deg, var(--info), #000000);
+            color: white;
+        }
+
+        .section-title {
+            font-weight: 800;
+            font-size: 1.4rem;
+            padding-left: 15px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10%;
+            height: 80%;
+            width: 5px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+
+        .analytics-card {
+            padding: 25px;
+        }
+
+        .table-modern th {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+            padding-bottom: 15px;
+            white-space: nowrap;
+        }
+
+        .table-modern td {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+            vertical-align: middle;
+            font-weight: 500;
+        }
+
+        .badge-custom {
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            border: 1px solid #e2e8f0;
+            display: inline-block;
+        }
+
+        .search-box {
+            background: #ffffff;
+            border-radius: 50px;
+            padding: 15px 30px;
+            border: 1px solid #e2e8f0;
+            width: 100%;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(1, 190, 254, 0.20);
+        }
+
+        .page-section {
+            display: none;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        #dashboard {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-content {
+            border-radius: 24px;
+            background: #ffffff;
+            border: none;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 12px;
+            padding: 12px 15px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            box-shadow: 0 0 0 4px rgba(1, 190, 254, 0.15);
+            border-color: var(--primary);
+            background: #fff;
+        }
+
+        /* Solid Background SweetAlert Fixes */
+        .swal2-popup {
+            border-radius: 20px !important;
+            font-family: 'Poppins', 'Noto Sans Malayalam', sans-serif !important;
+            padding: 2em !important;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+            background: #ffffff !important;
+        }
+
+        .swal2-title {
+            font-weight: 700 !important;
+            color: var(--text-main) !important;
+            font-size: 1.5rem !important;
+        }
+
+        .swal2-html-container {
+            font-size: 1.1rem !important;
+            color: var(--text-muted) !important;
+        }
+
+        /* Floating Labels Adjustments for Forms */
+        .form-floating>.form-control {
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+        }
+
+        .form-floating>.form-control:focus {
+            background-color: #fff;
+            border-color: var(--primary);
+        }
+
+        .form-floating>label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Custom Dropdown Design */
+        .custom-dropdown .btn {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 50px;
+            padding: 6px 18px;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .custom-dropdown .dropdown-menu {
+            border-radius: 16px;
+            padding: 8px;
+            border: none;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            min-width: 180px;
+            margin-top: 5px !important;
+        }
+
+        .custom-dropdown .dropdown-item {
+            border-radius: 10px;
+            padding: 10px 15px;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 2px;
+            transition: 0.2s;
+        }
+
+        .custom-dropdown .dropdown-item:hover {
+            background: rgba(1, 190, 254, 0.08);
+            color: var(--primary);
+            transform: translateX(3px);
+        }
+
+        .custom-dropdown .dropdown-item.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(1, 190, 254, 0.30);
+        }
+
+        /* Modern Toggle Switch */
+        .form-switch .form-check-input {
+            width: 3em;
+            height: 1.5em;
+            cursor: pointer;
+            border: none;
+            background-color: #cbd5e1;
+            transition: 0.3s;
+            margin-top: 0;
+        }
+
+        .form-switch .form-check-input:checked {
+            background-color: var(--primary);
+        }
+
+        .form-switch .form-check-input:focus {
+            box-shadow: none;
+            border-color: transparent;
+        }
+
+        .cat-badge {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            color: var(--text-main);
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+        }
+
+        /* Responsive Adjustments (Mobile 2x2 Grid) */
+        @media (max-width: 768px) {
+            .header-actions {
+                flex-direction: column;
+                width: 100%;
+                gap: 10px;
+            }
+
+            .header-actions button {
+                width: 100%;
+            }
+
+            .table-responsive {
+                border-radius: 15px;
+                border: 1px solid #e2e8f0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .stat-card {
+                padding: 15px;
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .icon-box {
+                min-width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .stat-info h2 {
+                font-size: 1.5rem;
+            }
+
+            .stat-info h6 {
+                font-size: 0.7rem;
+            }
+
+            .analytics-card {
+                padding: 12px !important;
+            }
+
+            .table-modern th,
+            .table-modern td {
+                padding: 8px 4px !important;
+                font-size: 0.72rem !important;
+            }
+
+            .table-modern th {
+                white-space: normal !important;
+            }
+
+            .table-modern td div.fw-bold {
+                font-size: 0.78rem !important;
+                word-break: break-word;
+            }
+
+            .table-modern td div.fs-5 {
+                font-size: 0.85rem !important;
+            }
+
+            .badge-custom {
+                padding: 4px 6px !important;
+                font-size: 0.65rem !important;
+                display: inline-block;
+            }
+
+            .table-responsive {
+                overflow-x: hidden !important;
+                border-radius: 12px;
+            }
+        }
+
+        /* Override Bootstrap Primary Colors with #01BEFE and Black */
+        .text-primary {
+            color: var(--primary) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--primary) !important;
+        }
+
+        .border-primary {
+            border-color: var(--primary) !important;
+        }
+
+        .btn-primary {
+            background-color: var(--primary) !important;
+            border-color: var(--primary) !important;
+            color: #000000 !important;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background-color: #0096cb !important;
+            border-color: #0096cb !important;
+            color: #ffffff !important;
+        }
+
+        .btn-outline-primary {
+            color: var(--primary) !important;
+            border-color: var(--primary) !important;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary) !important;
+            border-color: var(--primary) !important;
+            color: #000000 !important;
+        }
+
+        .badge.bg-primary.bg-opacity-10 {
+            background-color: rgba(1, 190, 254, 0.1) !important;
+            color: var(--primary) !important;
+        }
+
+        /* Animated Startup Splash Screen */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, #0d1b2a 0%, #010409 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 1;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .splash-screen.fade-out-active {
+            opacity: 0;
+            transform: scale(1.05);
+            pointer-events: none;
+        }
+
+        .splash-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .splash-logo-container {
+            position: relative;
+            margin-bottom: 25px;
+            animation: splashLogoIntro 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .splash-logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            border-radius: 24px;
+            border: 4px solid var(--primary);
+            box-shadow: 0 0 40px rgba(1, 190, 254, 0.4);
+        }
+
+        .splash-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-bottom: 5px;
+            background: linear-gradient(45deg, #ffffff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            animation: splashFadeInUp 0.8s ease-out 0.5s forwards;
+        }
+
+        .splash-divider {
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 10px;
+            margin: 15px 0 20px 0;
+            opacity: 0;
+            animation: splashExpand 0.8s ease-out 0.8s forwards;
+        }
+
+        .splash-sponsor {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #8892b0;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: splashFadeInUp 0.8s ease-out 1s forwards;
+        }
+
+        .splash-sponsor span {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: block;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+            text-transform: none;
+        }
+
+        .splash-loader {
+            width: 150px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            opacity: 0;
+            animation: splashFadeIn 0.8s ease-out 1.2s forwards;
+        }
+
+        .loader-bar {
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 10px;
+            transform: translateX(-100%);
+            animation: loaderFill 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards;
+        }
+
+        /* Keyframe Animations */
+        @keyframes splashLogoIntro {
+            0% {
+                transform: scale(0.3) rotate(-10deg);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes splashFadeInUp {
+            0% {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes splashFadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes splashExpand {
+            0% {
+                width: 0;
+                opacity: 0;
+            }
+
+            100% {
+                width: 60px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes loaderFill {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+    </style>
+
+    <style id="professional-layout">
+    :root{--primary:#0369a1;--info:#0369a1;--secondary:#0f172a;--text-main:#172033;--text-muted:#64748b}
+    body{background:#f4f7fb;color:var(--text-main);font-size:14px;line-height:1.65}
+    .navbar-custom{background:#fff;border-bottom:1px solid #e2e8f0;box-shadow:none;padding:14px 0;margin-bottom:26px}
+    .navbar-custom .container,body>.container{max-width:none;width:100%;padding-left:32px;padding-right:32px}
+    .navbar-brand{background:none;-webkit-text-fill-color:#0f172a;color:#0f172a;font-size:1.25rem;letter-spacing:-.4px}
+    .navbar-nav{gap:4px}.nav-link{margin:0!important;padding:10px 14px!important;border-radius:8px;cursor:pointer;font-size:.9rem;transform:none!important}
+    .nav-link.active{color:#0369a1!important;background:#e0f2fe;border-bottom:0}
+    .nav-link:hover{background:#f1f5f9}.section-title{font-size:1.35rem;font-weight:700;color:#0f172a}
+    .glass-panel{border:1px solid #e2e8f0;border-top:1px solid #e2e8f0;border-radius:12px;box-shadow:0 2px 5px #0f172a04;transition:none}
+    .glass-panel:hover{border-color:#cbd5e1;box-shadow:0 2px 5px #0f172a04;transform:none}
+    .analytics-card{padding:24px}.stat-card{padding:22px;gap:16px;min-height:115px;transform:none!important}
+    .stat-info h2{font-size:2rem;letter-spacing:-1px}.stat-info h6{font-size:.72rem;letter-spacing:.6px;line-height:1.4}
+    .icon-box{min-width:48px;height:48px;font-size:1.4rem;border-radius:10px;background:#f0f7ff;box-shadow:none}
+    .action-card{padding:24px;border:1px solid #e2e8f0;transform:none!important}.action-card:hover{border-color:#94a3b8}
+    .btn{border-radius:8px!important;font-size:.875rem;min-height:40px;padding:8px 14px;box-shadow:none!important;transform:none!important}
+    .btn-modern{font-size:.9rem}.btn-gradient-primary,.btn-gradient-info{background:#0369a1!important;color:white;border-color:#0369a1}
+    .btn-gradient-success{background:#047857!important;color:white;border-color:#047857}
+    .form-control,.form-select,.search-box{border:1px solid #cbd5e1!important;border-radius:8px!important;box-shadow:none;font-size:.95rem;min-height:46px}
+    .form-control:focus,.form-select:focus,.search-box:focus{outline:3px solid #bae6fd;outline-offset:1px;border-color:#0284c7!important}
+    .table-modern thead th{background:#f8fafc;color:#475569;font-size:.75rem;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;border-bottom:1px solid #e2e8f0;padding:14px}
+    .table-modern tbody td{padding:14px;border-bottom:1px solid #eef2f7;font-size:.9rem;vertical-align:middle}
+    .table-modern tbody tr:last-child td{border-bottom:0}.table-responsive{border:1px solid #e2e8f0;border-radius:8px}
+    .record-actions{display:flex;gap:6px;flex-wrap:wrap;min-width:205px}.record-actions .btn{min-height:36px;padding:5px 10px;font-size:.78rem}
+    .badge-custom{border-radius:6px;padding:5px 9px;box-shadow:none!important;font-size:.78rem}.rounded-pill{border-radius:8px!important}
+    .modal-content{border:0;border-radius:14px;box-shadow:0 20px 70px #0f172a30}.modal-header{border-bottom:1px solid #e2e8f0;background:#f8fafc;padding:20px 24px}.modal-body{padding:24px}
+    .modal-title{font-size:1.1rem}.header-actions{gap:8px;flex-wrap:wrap}
+    .splash-screen{background:#f8fafc}.splash-logo{box-shadow:none}.splash-title{color:#0f172a}
+    :focus-visible{outline:3px solid #38bdf8;outline-offset:3px}
+    @media(min-width:1200px){body>.container{padding-left:40px;padding-right:40px}.navbar-custom .container{padding-left:40px;padding-right:40px}.modal-dialog{max-width:640px}}
+    @media(max-width:991px){.navbar-custom .container,body>.container{padding-left:20px;padding-right:20px}.navbar-nav{align-items:stretch!important;padding-top:12px}.nav-link{width:100%}.navbar-custom{margin-bottom:20px}}
+    @media(max-width:575px){.navbar-custom .container,body>.container{padding-left:12px;padding-right:12px}.navbar-brand{font-size:1.08rem}.stat-card{padding:14px;gap:8px;min-height:105px}.stat-card .icon-box{min-width:32px;height:36px;font-size:1.1rem}.stat-info h2{font-size:1.6rem}.stat-info h6{font-size:.65rem}.analytics-card{padding:14px}.action-card{padding:18px}.section-title{font-size:1.15rem}.table-modern tbody td{padding:10px;min-width:90px}.table-modern tbody td:nth-child(2){min-width:165px}.modal-dialog{margin:12px}.modal-body{padding:18px}.modal-header{padding:16px 18px}.header-actions .btn{flex:1}.search-box{width:100%;font-size:16px}.form-control,.form-select{font-size:16px}#pwaInstallBanner{flex-wrap:wrap;gap:12px}.row{--bs-gutter-x:1rem;--bs-gutter-y:1rem}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+    @media print{.navbar-custom,.hide-in-pdf,.splash-screen{display:none!important}body{background:#fff}.glass-panel{box-shadow:none}.table-responsive{overflow:visible}.container{max-width:100%!important}}
+    </style>
+
+    <style id="reference-workspace-layout">
+    :root{--primary:#5465c5;--info:#5465c5;--text-main:#202938;--text-muted:#7a8597}
+    body{background:#f6f9fc;padding-top:96px}
+    .workspace-header{height:72px;position:fixed;inset:0 0 auto 0;background:#fff;border-bottom:1px solid #edf0f5;z-index:1030;display:flex;align-items:center;gap:28px;padding:0 26px}
+    .workspace-brand{width:194px;flex-shrink:0;display:flex;align-items:center;gap:10px;text-decoration:none;color:#202938;font-size:1.15rem;font-weight:700;letter-spacing:-.4px}
+    .workspace-brand img{width:32px;height:32px;border-radius:8px;object-fit:contain}
+    .workspace-search{width:min(540px,48vw);position:relative}.workspace-search form{display:flex;align-items:center;gap:10px;border:1px solid #e7ecf3;background:#fafcfe;border-radius:8px;padding:7px 12px}
+    .workspace-search .bi-search{color:#94a3b8;font-size:.9rem}.workspace-search input{width:100%;min-width:0;border:0;background:transparent;outline:0;color:#273449;font-size:.85rem;padding:3px 0}
+    .workspace-search input::placeholder{color:#8e9aab}.workspace-search button{border:0;background:#eff2f7;color:#7d8a9e;border-radius:4px;font-size:.7rem;min-width:27px;min-height:25px}
+    .workspace-search-results{position:absolute;top:calc(100% + 8px);left:0;right:0;max-height:420px;overflow:auto;background:#fff;border:1px solid #e2e8f0;border-radius:10px;box-shadow:0 12px 36px #25334d1a;padding:10px;z-index:1050}
+    .workspace-search-results button{display:block;width:100%;text-align:left;border:0;background:#fff;color:#334155;font-size:.83rem;padding:10px;border-radius:6px}.workspace-search-results button:hover{background:#edf2ff}
+    .workspace-search-results p{margin:5px;font-size:.8rem;color:#64748b}
+    .workspace-identity{margin-left:auto;display:flex;align-items:center;gap:8px;white-space:nowrap;color:#64748b;font-size:.8rem;font-weight:500}
+    .status-dot{width:7px;height:7px;background:#26a675;border-radius:50%;display:inline-block}
+    .workspace-sidebar{position:fixed;top:72px;left:0;bottom:0;width:220px;border-right:1px solid #edf0f5;border-bottom:0;padding:24px 14px;margin:0;background:#fff;display:block;z-index:1020;overflow-y:auto}
+    .workspace-sidebar>.container{padding:0!important;width:100%;display:block}.workspace-sidebar .navbar-brand,.workspace-sidebar .navbar-toggler{display:none!important}
+    .workspace-sidebar .navbar-collapse{display:block!important}.workspace-sidebar .navbar-nav{display:flex;flex-direction:column;width:100%;gap:8px;align-items:stretch!important}
+    .workspace-sidebar .nav-link{padding:12px 15px!important;font-size:.85rem;font-weight:500;color:#7d8796!important;border-radius:9px!important;display:flex;align-items:center;gap:9px}
+    .workspace-sidebar .nav-link .bi{font-size:1.05rem}.workspace-sidebar .nav-link.active{background:#edf0ff;color:#6570cc!important;font-weight:600}
+    .workspace-sidebar .nav-link:hover{background:#f4f6fb;color:#4f5fb3!important}.workspace-sidebar #nav-transactions{margin-top:22px!important;border-top:1px solid #eef1f6;border-radius:0!important;padding-top:24px!important}
+    body>.container{width:calc(100% - 220px);margin-left:220px;padding:0 28px 32px!important;max-width:none}
+    .workspace-eyebrow{font-size:.64rem;font-weight:700;letter-spacing:1.4px;color:#8995a7;margin:0 0 3px}
+    .workspace-subtitle{font-size:.8rem;color:#8792a2;margin:4px 0 0}.section-title{font-size:1.3rem;letter-spacing:-.45px;color:#182332}
+    #dashboard>.d-flex:first-child{align-items:center!important;margin-bottom:22px!important}#dashboard>.row.g-3{margin-bottom:22px!important}
+    .glass-panel{border:1px solid #edf1f6;border-radius:10px;box-shadow:0 2px 7px #24344b04}.glass-panel:hover{border-color:#e4eaf2;box-shadow:0 2px 7px #24344b04}
+    .stat-card{min-height:150px;padding:20px 22px;display:block;position:relative}.stat-card .icon-box{min-width:0;width:32px;height:32px;font-size:1rem;border-radius:6px;margin-bottom:13px;background:#f0f4fb}
+    .stat-info h6{font-size:.66rem;font-weight:600;color:#8895a7;letter-spacing:.55px;margin-bottom:6px}.stat-info h2{font-size:2rem;color:#253042;letter-spacing:-.8px;font-weight:700}
+    .icon-blue{color:#6473a0}.icon-green{color:#44a47c;background:#edf8f3!important}.icon-orange{color:#c6904c;background:#fdf5eb!important}.icon-pink{color:#d66574;background:#fff0f2!important}
+    #dashboard .col-6.col-lg-3:last-child .glass-panel{border-color:#f6d8dd;background:#fffcfd}#overdueCount{color:#cf4d5b}
+    .analytics-card{padding:20px}.analytics-card h5{font-size:.9rem;margin-bottom:16px;font-weight:600!important;color:#354151}.analytics-card .table-modern thead th{font-size:.65rem}
+    .badge.bg-primary.bg-opacity-10{background:transparent!important;color:#7f8b9a!important;border:0!important;font-size:.75rem;font-weight:500!important;padding:4px!important}
+    .btn-gradient-primary,.btn-gradient-info{background:#5869bc!important;border-color:#5869bc}.btn-outline-primary{--bs-btn-color:#5869bc;--bs-btn-border-color:#cbd3ee;--bs-btn-hover-bg:#5869bc;--bs-btn-hover-border-color:#5869bc}
+    .text-primary{color:#5869bc!important}.bg-primary{background-color:#5869bc!important}.action-card{padding:22px;text-align:left}.action-card h5{font-size:.95rem}
+    .splash-screen{background:radial-gradient(ellipse at top,#e9f2ff 0%,#f8fbff 45%,#fff 100%)!important;z-index:2000}
+    .splash-logo{box-shadow:0 16px 45px #48629a18;border:1px solid #e7edf5}.splash-title{font-size:2rem;letter-spacing:-.7px;background:none!important;-webkit-text-fill-color:#273449!important;color:#273449}
+    .splash-divider{background:#6573c4}.splash-sponsor{color:#7e8b9d}.splash-sponsor span{color:#485976}.splash-enter{margin-top:20px;border:0;border-radius:10px;background:#5869bc;color:#fff;font-size:.85rem;font-weight:600;padding:12px 25px;box-shadow:0 6px 18px #5869bc26}
+    .splash-loader{margin-top:22px}.loader-bar{background:#6573c4}
+    @media(min-width:1600px){body>.container{padding-left:40px!important;padding-right:40px!important}.workspace-search{width:600px}}
+    @media(max-width:1199px) and (min-width:992px){.workspace-sidebar{width:190px}.workspace-brand{width:164px;font-size:1rem}body>.container{width:calc(100% - 190px);margin-left:190px;padding-left:20px!important;padding-right:20px!important}.stat-card{padding:18px 14px}}
+    @media(max-width:991px){body{padding-top:142px}.workspace-header{padding:0 18px;gap:15px}.workspace-brand{width:auto;font-size:1rem}.workspace-identity{display:none}.workspace-search{flex:1;width:auto}.workspace-sidebar{top:72px;bottom:auto;left:0;right:0;width:100%;padding:8px 18px;border-right:0;border-bottom:1px solid #edf0f5;overflow:visible}.workspace-sidebar>.container{display:flex;flex-wrap:wrap;align-items:center}.workspace-sidebar .navbar-brand{display:flex!important;font-size:.85rem;margin:0}.workspace-sidebar .navbar-brand img{display:none}.workspace-sidebar .navbar-toggler{display:block!important;margin-left:auto;padding:0 5px;line-height:1}.workspace-sidebar .navbar-collapse:not(.show){display:none!important}.workspace-sidebar .navbar-collapse.show{display:block!important;flex-basis:100%}.workspace-sidebar .navbar-nav{padding-top:12px;padding-bottom:8px}.workspace-sidebar #nav-transactions{margin-top:0!important;border:0;padding-top:12px!important;border-radius:9px!important}body>.container{margin-left:0;width:100%;padding:0 18px 24px!important}.stat-card{min-height:140px}}
+    @media(max-width:575px){.workspace-header{height:68px;padding:0 12px;gap:12px}.workspace-brand{font-size:.88rem;gap:6px}.workspace-brand img{width:25px;height:25px}.workspace-brand span{max-width:96px;line-height:1.2}.workspace-search form{padding:7px 8px;gap:6px}.workspace-search input{font-size:16px}.workspace-search button{display:none}.workspace-sidebar{top:68px;padding:8px 12px}body{padding-top:132px}body>.container{padding-left:12px!important;padding-right:12px!important}.stat-card{padding:16px;min-height:135px}.stat-card .icon-box{width:29px;height:29px;margin-bottom:10px}.stat-info h2{font-size:1.8rem}.stat-info h6{font-size:.62rem}.workspace-subtitle{max-width:260px;line-height:1.55}.workspace-search-results{position:fixed;top:65px;left:12px;right:12px;max-height:60vh}.analytics-card{padding:16px}.splash-title{font-size:1.7rem}.splash-sponsor{font-size:.8rem}}
+    @media print{.workspace-header,.workspace-sidebar{display:none!important}body{padding-top:0}body>.container{width:100%;margin:0;padding:0!important}}
+    </style>
+
+    <style id="colorful-library-polish">
+    :root{--primary:#5266d8;--info:#5266d8}
+    body{background:#f3f6fc}.workspace-header{background:linear-gradient(110deg,#fff 20%,#f0f5ff 70%,#effcf9);border-bottom:1px solid #e2e9f6}
+    .workspace-brand{color:#293c75}.workspace-sidebar{background:linear-gradient(180deg,#fff,#f5f7ff);border-right-color:#e3e9f4}
+    .workspace-sidebar .nav-link.active{background:linear-gradient(120deg,#596ee0,#7963cf);color:#fff!important;box-shadow:0 6px 16px #586bd62b}
+    .workspace-sidebar .nav-link:hover:not(.active){background:#eaf0ff}.workspace-eyebrow{color:#6271b4}.section-title{color:#26376a}
+    .stat-card{border:0!important;min-height:162px;box-shadow:0 5px 18px #31457509;overflow:hidden}
+    .stat-card::after{content:'';position:absolute;width:90px;height:90px;border-radius:50%;right:-25px;top:-25px;background:#ffffff66;pointer-events:none}
+    #dashboard .col-6.col-lg-3:nth-child(1) .stat-card{background:linear-gradient(135deg,#eaf0ff,#dfe8ff)}
+    #dashboard .col-6.col-lg-3:nth-child(2) .stat-card{background:linear-gradient(135deg,#e4f8f2,#d2f1e9)}
+    #dashboard .col-6.col-lg-3:nth-child(3) .stat-card{background:linear-gradient(135deg,#fff5e5,#ffebc9)}
+    #dashboard .col-6.col-lg-3:nth-child(4) .stat-card{background:linear-gradient(135deg,#ffedf1,#ffdee6)}
+    .stat-card .icon-box{background:#ffffffb8!important;box-shadow:0 2px 6px #00000004}.stat-info h6{color:#60708d}.stat-info h2{color:#253d70}
+    #availableBooks{color:#167b64}#issuedBooks{color:#ae771d}#overdueCount{color:#bd4963}
+    .analytics-card{border:1px solid #e5eaf4;box-shadow:0 5px 20px #364d7706;border-radius:14px}.analytics-card h5{color:#394c7b;border-bottom:1px solid #edf0f8;padding-bottom:12px}
+    .badge-custom{background:#eff3ff!important;border:1px solid #e0e7fa;color:#4c5e96!important}.btn-gradient-primary,.btn-gradient-info{background:linear-gradient(110deg,#526bdb,#7562c9)!important;border:0}
+    .book-filter-panel{display:flex;flex-wrap:wrap;align-items:end;gap:14px;padding:18px 20px;margin-bottom:20px;background:linear-gradient(115deg,#edf2ff,#effbf8);border:1px solid #e0e7f6;border-radius:12px}
+    .book-filter-panel>div{min-width:180px;flex:1;max-width:340px}.book-filter-panel label{display:block;color:#667699;font-size:.65rem;font-weight:700;letter-spacing:.8px;margin-bottom:6px}
+    .book-filter-panel .form-select{background-color:white;border-color:#d8e2f4!important;min-height:42px}.book-filter-panel #bookResultCount{margin-left:auto;color:#607397;font-size:.8rem;align-self:center}
+    .table-modern thead th{background:#f0f4fc;color:#687a9b}.table-modern tbody tr:nth-child(even){background:#fafcff}.table-modern tbody tr:hover{background:#eff5ff}
+    .splash-enter{background:linear-gradient(110deg,#536cdd,#7b62c6)}
+    @media(max-width:575px){.stat-card{min-height:140px}.book-filter-panel{padding:14px;gap:10px}.book-filter-panel>div{min-width:120px;max-width:none}.book-filter-panel #bookResultCount{font-size:.75rem}}
+    </style>
+
+    <style id="compact-library-layout">
+    body{font-size:13px;padding-top:80px}
+    .workspace-header{height:60px;padding:0 20px;gap:20px}.workspace-brand{font-size:1.05rem;width:168px}.workspace-brand img{width:28px;height:28px}
+    .workspace-sidebar{top:60px;width:192px;padding:18px 10px}.workspace-sidebar .nav-link{padding:10px 12px!important;font-size:.8rem;gap:8px}.workspace-sidebar .navbar-nav{gap:5px}
+    body>.container{margin-left:192px;width:calc(100% - 192px);padding:0 22px 24px!important}
+    .section-title{font-size:1.15rem}.workspace-subtitle{font-size:.75rem;margin-top:2px}.workspace-eyebrow{font-size:.6rem;margin-bottom:2px}
+    .page-section>.d-flex:first-child{margin-bottom:16px!important}.page-section .row{--bs-gutter-x:1rem;--bs-gutter-y:1rem}
+    .page-section .mb-5{margin-bottom:22px!important}.page-section .mb-4{margin-bottom:18px!important}.page-section .mt-5{margin-top:24px!important}
+    .stat-card{min-height:120px!important;padding:15px 18px!important}.stat-card .icon-box{width:27px;height:27px;margin-bottom:9px;font-size:.9rem}.stat-info h2{font-size:1.7rem}.stat-info h6{font-size:.62rem;margin-bottom:4px}
+    .analytics-card{padding:16px!important}.analytics-card h5{font-size:.85rem;margin-bottom:12px;padding-bottom:10px}.action-card{padding:18px!important}
+    .btn{min-height:34px;padding:6px 11px;font-size:.8rem}.record-actions .btn{min-height:30px;font-size:.74rem;padding:4px 8px}
+    .form-control,.form-select,.search-box{min-height:38px;font-size:.85rem}.table-modern tbody td{padding:10px 12px;font-size:.82rem}.table-modern thead th{padding:10px 12px;font-size:.67rem}
+    .badge-custom{font-size:.72rem;padding:4px 7px}.list-group-item{padding-top:8px;padding-bottom:8px}.icon-box{min-width:42px;height:42px;font-size:1.2rem}
+    .book-toolbar{display:flex;align-items:center;gap:8px;margin:0 0 14px;flex-wrap:wrap}
+    .book-search-field{position:relative;flex:1;min-width:220px}.book-search-field .bi-search{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#8896b3;font-size:.85rem}.book-search-field input{padding-left:34px}
+    .book-toolbar>.form-select{width:126px;flex:0 0 126px;padding:6px 30px 6px 10px;min-height:38px;font-size:.8rem}
+    .book-toolbar>#bookCategoryFilter{width:164px;flex-basis:164px}.availability-toggle{display:flex;align-items:center;gap:6px;font-size:.78rem;color:#64718c;white-space:nowrap;margin:0;padding:0 3px}.availability-toggle input{margin:0;width:15px;height:15px}
+    .book-toolbar .btn{min-width:36px;min-height:36px;padding:6px}.book-toolbar>#bookResultCount{font-size:.73rem;color:#8190aa;white-space:nowrap}
+    #booksPrintArea,#membersPrintArea{padding:0!important}
+    @media(min-width:1600px){body>.container{padding-left:28px!important;padding-right:28px!important}}
+    @media(max-width:1199px) and (min-width:992px){.workspace-sidebar{width:176px}.workspace-brand{width:152px}body>.container{margin-left:176px;width:calc(100% - 176px);padding-left:18px!important;padding-right:18px!important}.book-toolbar>#bookResultCount{flex-basis:100%;text-align:right}}
+    @media(max-width:991px){body{padding-top:118px}.workspace-header{height:60px;padding:0 14px}.workspace-brand{width:auto}.workspace-sidebar{top:60px;width:100%;padding:6px 14px}.workspace-sidebar .nav-link{padding:9px 12px!important}body>.container{margin:0;width:100%;padding:0 14px 20px!important}.workspace-sidebar #nav-transactions{padding-top:9px!important}.book-toolbar>#bookResultCount{flex-basis:auto;text-align:left}}
+    @media(max-width:575px){body{padding-top:112px}.workspace-header{padding:0 10px;gap:10px}.workspace-brand{font-size:.86rem}.workspace-brand img{width:24px;height:24px}.workspace-sidebar{padding:5px 10px}body>.container{padding:0 10px 18px!important}.analytics-card{padding:12px!important}.stat-card{min-height:108px!important;padding:13px!important}.stat-info h2{font-size:1.55rem}.workspace-search input,.form-control,.form-select{font-size:16px}.book-search-field{min-width:0;flex-basis:100%}.book-toolbar>.form-select{width:auto;flex:1 1 105px;font-size:16px;min-width:0}.book-toolbar>#bookCategoryFilter{width:auto;flex:1 1 140px}.availability-toggle{font-size:.74rem}.book-toolbar>#bookResultCount{margin-left:auto}.table-modern tbody td{min-width:78px;padding:9px;font-size:.8rem}.table-modern tbody td:nth-child(2){min-width:155px}.section-title{font-size:1.05rem}}
+    @media print{body{padding:0}body>.container{margin:0;width:100%}}
+    </style>
+
+    <style id="single-mobile-header">
+    .mobile-search-slot{display:none}
+    @media(max-width:991px){
+        .workspace-header{display:none!important}
+        .workspace-sidebar{top:0!important;padding:9px 12px!important;min-height:56px;background:#fff;border-bottom:1px solid #e2e9f5;box-shadow:0 2px 8px #364c7406}
+        .workspace-sidebar>.container{gap:10px;flex-wrap:wrap}
+        .workspace-sidebar .navbar-brand{flex:0 0 auto;font-size:.78rem;white-space:nowrap;max-width:135px;gap:0}
+        .workspace-sidebar .navbar-brand img{display:block!important;width:23px!important;height:23px!important;margin-right:5px!important}
+        .mobile-search-slot{display:block;flex:1;min-width:70px}
+        .mobile-search-slot .workspace-search{width:100%;min-width:0}
+        .mobile-search-slot .workspace-search form{padding:5px 8px;gap:6px;border-radius:7px;min-height:34px}
+        .mobile-search-slot .workspace-search input{font-size:16px;padding:0;line-height:22px;min-width:0}
+        .mobile-search-slot .workspace-search button{display:none}
+        .workspace-sidebar .navbar-toggler{margin-left:0!important;flex:0 0 28px;min-width:28px;padding:0!important}
+        .workspace-sidebar .navbar-toggler i{font-size:1.5rem!important}
+        .workspace-search-results{position:fixed;top:56px;left:12px;right:12px;max-height:65vh;width:auto}
+        .workspace-sidebar .navbar-collapse.show{max-height:calc(100dvh - 70px);overflow-y:auto}
+        body{padding-top:76px!important}
+    }
+    @media(max-width:359px){.workspace-sidebar{padding-left:8px!important;padding-right:8px!important}.workspace-sidebar>.container{gap:6px}.workspace-sidebar .navbar-brand{font-size:.7rem}.workspace-sidebar .navbar-brand img{width:20px!important;height:20px!important}}
+    </style>
+
+    <style id="circulation-identity-layout">
+    .id-identity-hint{margin:-8px 0 12px;padding:7px 10px;border-radius:7px;background:#f1f5ff;color:#50649b;font-size:.78rem;line-height:1.5;overflow-wrap:anywhere;border-left:3px solid #8699d7}
+    .id-identity-hint[data-state="found"]{background:#edf8f3;color:#22715b;border-left-color:#58b194}
+    .id-identity-hint[data-state="missing"],.id-identity-hint[data-state="error"]{background:#fff5e9;color:#966223;border-left-color:#ddb16b}
+    .id-identity-hint[hidden]{display:none}
+    @media(max-width:991px){.mobile-search-slot{display:none!important}.workspace-sidebar>.container{justify-content:space-between}.workspace-sidebar .navbar-brand{max-width:none;font-size:.85rem}.workspace-sidebar .navbar-toggler{margin-left:auto!important}.workspace-sidebar .navbar-brand img{width:25px!important;height:25px!important}}
+    </style>
+
+    <style id="refined-phone-library">
+    @media(max-width:991px){
+        .workspace-sidebar{padding:12px 16px!important;min-height:68px;background:linear-gradient(115deg,#fff,#f7fcff);border-bottom:1px solid #e2edf5;box-shadow:0 3px 15px #09799c07}
+        .workspace-sidebar .navbar-brand{font-size:1.14rem!important;font-weight:800;letter-spacing:-.5px;gap:4px;background:linear-gradient(95deg,#029ac5,#073b4c 80%,#071923);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent!important}
+        .workspace-sidebar .navbar-brand img{width:33px!important;height:33px!important;margin-right:7px!important}
+        .workspace-sidebar .navbar-toggler{color:#06b5e6!important;width:36px;flex-basis:36px}
+        .workspace-sidebar .navbar-toggler i{font-size:1.85rem!important;color:#06b5e6!important}
+        body{padding-top:88px!important;background:#f5f8fd}
+        .workspace-sidebar .navbar-nav{gap:5px;padding-top:14px}.workspace-sidebar .nav-link{padding:11px 14px!important;font-size:.85rem;border-radius:10px!important}.workspace-sidebar .nav-link.active{background:linear-gradient(105deg,#04a8d8,#08789e);box-shadow:0 4px 12px #049dc921}
+        .section-title{font-size:1.12rem}.workspace-subtitle{font-size:.76rem;line-height:1.5}.workspace-eyebrow{color:#758aab}
+        #dashboard>.d-flex:first-child{gap:8px!important;align-items:flex-start!important}.stat-card{min-height:125px!important;padding:15px!important;border-radius:14px}.stat-info{text-align:left!important}.stat-info h2{font-size:1.65rem}.stat-info h6{font-size:.62rem}.stat-card .icon-box{width:29px;height:29px;margin-bottom:10px}
+        .analytics-card{border-radius:14px}.table-modern tbody td{padding:7px 8px!important;font-size:.78rem!important;line-height:1.5}.table-modern thead th{font-size:.62rem;padding:9px 8px}.table-modern tbody td:nth-child(2){min-width:140px}
+        .book-toolbar{gap:7px;margin-bottom:12px}.book-search-field .form-control{background:#fff;border-radius:9px!important}.record-actions{min-width:180px;gap:4px}.record-actions .btn{font-size:.68rem;min-height:30px}
+    }
+    @media(max-width:359px){.workspace-sidebar{padding:10px 12px!important}.workspace-sidebar .navbar-brand{font-size:1rem!important}.workspace-sidebar .navbar-brand img{width:28px!important;height:28px!important}}
+    </style>
+</head>
+
+<body>
+    <header class="workspace-header">
+        <a class="workspace-brand" href="#" onclick="showPage('dashboard');return false;"><img src="idcon.jpg" alt="IQRAA logo"><span>IQRA'A Library</span></a>
+        <div class="workspace-search">
+            <form onsubmit="searchWorkspace(event)" role="search"><i class="bi bi-search" aria-hidden="true"></i><input id="workspaceSearch" type="search" placeholder="Search books or students…" aria-label="Search books or students" autocomplete="off"><button type="submit" aria-label="Search"><i class="bi bi-arrow-return-left"></i></button></form>
+            <div id="workspaceSearchResults" class="workspace-search-results" hidden aria-live="polite"></div>
+        </div>
+        <div class="workspace-identity"><span class="status-dot"></span><span>Library workspace</span></div>
+    </header>
+
+    <!-- Animated Startup Splash Screen -->
+    <div id="splashScreen" class="splash-screen">
+        <div class="splash-content">
+            <div class="splash-logo-container">
+                <img src="idcon.jpg" alt="IQRA'A Library Logo" class="splash-logo">
+            </div>
+            <h1 class="splash-title">IQRA'A Library</h1>
+            <div class="splash-divider"></div>
+            <p class="splash-sponsor">
+                Sponsored By
+                <span>Sixth Batch Alumni Of Nilambur Markaz</span>
+            </p>
+            <button type="button" class="splash-enter" onclick="dismissWelcome()">Enter Library <i class="bi bi-arrow-right ms-2"></i></button>
+            <div class="splash-loader">
+                <div class="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom workspace-sidebar" aria-label="Main navigation">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#"><img src="idcon.jpg" alt="Logo"
+                    class="d-inline-block align-top me-2"
+                    style="height: 35px; width: 35px; object-fit: contain; border-radius: 6px;">IQRA'A Library</a>
+            <div class="mobile-search-slot"></div>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"><i class="bi bi-list fs-1 text-primary"></i></button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link active" id="nav-dashboard"
+                            onclick="showPage('dashboard')"><i class="bi bi-house-door-fill me-1"></i> Dashboard</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" id="nav-books" onclick="showPage('books')"><i
+                                class="bi bi-book-fill me-1"></i> Books</a></li>
+                    <li class="nav-item"><a class="nav-link" id="nav-members" onclick="showPage('members')"><i
+                                class="bi bi-mortarboard-fill me-1"></i> Students</a></li>
+                    <li class="nav-item"><a class="nav-link" id="nav-transactions" onclick="showPage('transactions')"><i
+                                class="bi bi-shield-lock-fill me-1"></i> Admin</a></li>
+                    <li class="nav-item"><a class="nav-link" id="nav-reports" onclick="showPage('reports')"><i
+                                class="bi bi-bar-chart-fill me-1"></i> Reports</a></li>
+                    <li class="nav-item d-none" id="installNavbarItem"><a class="nav-link text-success fw-bold" href="#"
+                            onclick="triggerPwaInstall(); return false;"><i class="bi bi-download me-1"></i> Install
+                            App</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container pb-5">
+
+        <!-- 1. HOME DASHBOARD -->
+        <div id="dashboard" class="page-section">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+                <div><p class="workspace-eyebrow">OVERVIEW</p><h4 class="section-title mb-0">Library Dashboard</h4><p class="workspace-subtitle">Your library at a glance. Books, students and circulation in one place.</p></div>
+                <span
+                    class="badge bg-primary bg-opacity-10 text-primary border border-primary rounded-pill px-3 py-2 fw-bold"><i class="bi bi-calendar3 me-1"></i><span id="workspaceDate">Live Data</span></span>
+            </div>
+
+            <!-- PWA Install Banner -->
+            <div id="pwaInstallBanner"
+                class="alert alert-success d-none border-0 shadow-sm rounded-4 p-3 mb-4 d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="fs-1 text-success"><i class="bi bi-phone-vibrate"></i></div>
+                    <div>
+                        <h6 class="fw-bold mb-1">Install IQRA'A Library App</h6>
+                        <p class="small text-muted mb-0">ആപ്പായി ഇൻസ്റ്റാൾ ചെയ്ത് വേഗത്തിൽ ഉപയോഗിക്കൂ!</p>
+                    </div>
+                </div>
+                <button class="btn btn-success rounded-pill px-4 fw-bold" onclick="triggerPwaInstall()">
+                    <i class="bi bi-download me-1"></i> Install
+                </button>
+            </div>
+
+            <!-- Stats (Mobile 2 per row using col-6) -->
+            <div class="row g-3 mb-5">
+                <div class="col-6 col-lg-3">
+                    <div class="glass-panel stat-card">
+                        <div class="icon-box icon-blue"><i class="bi bi-journals"></i></div>
+                        <div class="stat-info">
+                            <h6>Total Books</h6>
+                            <h2 id="totalBooks">0</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="glass-panel stat-card">
+                        <div class="icon-box icon-green"><i class="bi bi-check-circle-fill"></i></div>
+                        <div class="stat-info">
+                            <h6>Available</h6>
+                            <h2 id="availableBooks">0</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="glass-panel stat-card">
+                        <div class="icon-box icon-orange"><i class="bi bi-bookmark-star-fill"></i></div>
+                        <div class="stat-info">
+                            <h6>Issued</h6>
+                            <h2 id="issuedBooks">0</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="glass-panel stat-card">
+                        <div class="icon-box icon-pink"><i class="bi bi-exclamation-circle-fill"></i></div>
+                        <div class="stat-info">
+                            <h6>Overdue</h6>
+                            <h2 id="overdueCount">0</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories & Recent -->
+            <div class="row g-4 mb-4 align-items-stretch">
+                <div class="col-lg-7">
+                    <div class="glass-panel analytics-card h-100">
+                        <h5 class="fw-bold mb-4"><i class="bi bi-tags-fill text-primary me-2"></i>Books by Category</h5>
+                        <div id="dashCategories" class="d-flex flex-wrap gap-2">Loading...</div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="glass-panel analytics-card h-100">
+                        <h5 class="fw-bold mb-4"><i class="bi bi-stars text-warning me-2"></i>Recently Added Books</h5>
+                        <ul class="list-group list-group-flush bg-transparent" id="dashRecent">Loading...</ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Readers & Books -->
+            <div class="row g-4 align-items-stretch">
+                <div class="col-md-6">
+                    <div class="glass-panel analytics-card h-100 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-bold text-success mb-0"><i class="bi bi-mortarboard-fill me-2"></i>Top Readers
+                            </h5>
+                            <div class="dropdown custom-dropdown">
+                                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    id="readerFilterBtn">
+                                    <i class="bi bi-calendar-event-fill text-muted me-1"></i> All Time
+                                </button>
+                                <ul class="dropdown-menu shadow">
+                                    <li><a class="dropdown-item active" href="#"
+                                            onclick="filterReaders('all', 'All Time', event)">All Time</a></li>
+                                    <li><a class="dropdown-item" href="#"
+                                            onclick="filterReaders('month', 'Last 30 Days', event)">Last 30 Days</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#"
+                                            onclick="filterReaders('3months', 'Last 90 Days', event)">Last 90 Days</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#"
+                                            onclick="filterReaders('year', 'Last 365 Days', event)">Last 365 Days</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="table-responsive flex-grow-1">
+                            <table class="table table-modern table-sm align-middle mb-0">
+                                <tbody id="dashTopReaders"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="glass-panel analytics-card h-100">
+                        <h5 class="fw-bold text-primary mb-4"><i class="bi bi-book-half me-2"></i>Top Books</h5>
+                        <div class="table-responsive">
+                            <table class="table table-modern table-sm align-middle mb-0">
+                                <tbody id="dashTopBooks"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="books" class="page-section">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 mt-2 gap-3">
+                <h4 class="section-title mb-0">Book Management</h4>
+                <div class="d-flex header-actions"><button class="btn btn-primary admin-only-btn d-none" data-bs-toggle="modal" data-bs-target="#addBookModal"><i class="bi bi-plus-lg me-1"></i>Add book</button>
+                    <button class="btn btn-outline-primary rounded-pill fw-bold"
+                        onclick="downloadPDF('booksPrintArea', 'Books_List')"><i class="bi bi-file-pdf-fill"></i> PDF
+                        Download</button>
+                </div>
+            </div>
+
+            <div class="book-toolbar hide-in-pdf">
+                <div class="book-search-field"><i class="bi bi-search" aria-hidden="true"></i><input type="search" id="searchBookInput" class="form-control" placeholder="Book / Manglish / ID" aria-label="Search books" oninput="searchBooks()"></div>
+                <select id="bookPrefixFilter" class="form-select" aria-label="Book code" onchange="searchBooks()"><option value="">All codes</option></select>
+                <select id="bookCategoryFilter" class="form-select" aria-label="Category" onchange="searchBooks()"><option value="">All categories</option></select>
+                <label class="availability-toggle" for="availFilter"><input type="checkbox" class="form-check-input" id="availFilter" onchange="searchBooks()"> Available</label>
+                <button class="btn btn-light border" type="button" onclick="resetBookFilters()" title="Reset filters" aria-label="Reset filters"><i class="bi bi-arrow-counterclockwise"></i></button>
+                <span id="bookResultCount" role="status" aria-live="polite"></span>
+            </div>
+            <div class="glass-panel analytics-card">
+                <div id="booksPrintArea" class="bg-white p-2 rounded-4">
+                    <h4 class="pdf-title fw-bold text-center mb-4 text-primary" style="display:none;">Library Inventory
+                    </h4>
+                    <div class="table-responsive">
+                        <table class="table table-modern table-hover align-middle table-borderless mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Book ID</th>
+                                    <th>Title & Author</th>
+                                    <th>Category</th>
+                                    <th>Stock / Available</th>
+                                    <th class="hide-in-pdf admin-only-btn d-none">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="booksTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="members" class="page-section">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 mt-2 gap-3">
+                <h4 class="section-title mb-0">Student Management</h4>
+                <div class="d-flex header-actions"><button class="btn btn-primary admin-only-btn d-none" data-bs-toggle="modal" data-bs-target="#addMemberModal"><i class="bi bi-plus-lg me-1"></i>Add student</button>
+                    <button class="btn btn-outline-primary rounded-pill fw-bold"
+                        onclick="downloadPDF('membersPrintArea', 'Students_List')"><i class="bi bi-file-pdf-fill"></i>
+                        PDF Download</button>
+                </div>
+            </div>
+            <div class="mb-4 position-relative"><i
+                    class="bi bi-search position-absolute top-50 translate-middle-y text-success fs-5"
+                    style="left: 20px;"></i><input type="text" id="searchMemberInput" class="search-box ps-5"
+                    placeholder="Search by Student Name, ID or Class..." onkeyup="searchMembers()"></div>
+
+            <div class="glass-panel analytics-card">
+                <div id="membersPrintArea" class="bg-white p-2 rounded-4">
+                    <h4 class="pdf-title fw-bold text-center mb-4 text-success" style="display:none;">Students List</h4>
+                    <div class="table-responsive">
+                        <table class="table table-modern table-hover align-middle table-borderless mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Student ID</th>
+                                    <th>Name</th>
+                                    <th>Class/Dept</th>
+                                    <th class="hide-in-pdf admin-only-btn d-none">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="membersTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. ADMIN CONSOLE -->
+        <div id="transactions" class="page-section">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+                <h4 class="section-title mb-0">Admin Console</h4>
+                <button class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-bold" onclick="lockAdmin()">
+                    <i class="bi bi-lock-fill me-1"></i> Lock Session
+                </button>
+            </div>
+
+            <h5 class="fw-bold mb-3 text-primary"><i class="bi bi-arrow-left-right me-2"></i>Circulation Desk</h5>
+
+            <!-- 3 Columns Grid for Forms -->
+            <div class="row g-4 align-items-stretch mb-4">
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-panel analytics-card h-100 d-flex flex-column">
+                        <h5 class="fw-bold text-primary mb-4"><i class="bi bi-box-arrow-up-right me-2"></i>Issue Book
+                        </h5>
+                        <form id="issueForm" onsubmit="submitIssue(event)" class="mt-auto">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control fw-bold text-primary" id="issueMemberId"
+                                    placeholder="Student ID" required>
+                                <label for="issueMemberId" class="text-muted"><i class="bi bi-person me-1"></i>Student
+                                    ID</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control fw-bold text-primary" id="issueBookId"
+                                    placeholder="Book ID" required>
+                                <label for="issueBookId" class="text-muted"><i class="bi bi-book me-1"></i>Book
+                                    ID</label>
+                            </div>
+                            <button type="submit" class="btn btn-modern btn-gradient-primary w-100" id="issueBtn">Issue
+                                Book</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-panel analytics-card h-100 d-flex flex-column">
+                        <h5 class="fw-bold text-success mb-4"><i class="bi bi-box-arrow-in-down-left me-2"></i>Return
+                            Book</h5>
+                        <form id="returnForm" onsubmit="submitReturn(event)" class="mt-auto">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control fw-bold text-success" id="returnMemberId"
+                                    placeholder="Student ID" required>
+                                <label for="returnMemberId" class="text-muted"><i class="bi bi-person me-1"></i>Student
+                                    ID</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control fw-bold text-success" id="returnBookId"
+                                    placeholder="Book ID" required>
+                                <label for="returnBookId" class="text-muted"><i class="bi bi-book me-1"></i>Book
+                                    ID</label>
+                            </div>
+                            <button type="submit" class="btn btn-modern btn-gradient-success w-100"
+                                id="returnBtn">Return & Calc Fine</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- NEW: Renew Book Card -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-panel analytics-card h-100 d-flex flex-column">
+                        <h5 class="fw-bold text-info mb-4"><i class="bi bi-arrow-repeat me-2"></i>Renew Book</h5>
+                        <form id="renewForm" onsubmit="submitRenew(event)" class="mt-auto">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control fw-bold text-info" id="renewMemberId"
+                                    placeholder="Student ID" required>
+                                <label for="renewMemberId" class="text-muted"><i class="bi bi-person me-1"></i>Student
+                                    ID</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control fw-bold text-info" id="renewBookId"
+                                    placeholder="Book ID" required>
+                                <label for="renewBookId" class="text-muted"><i class="bi bi-book me-1"></i>Book
+                                    ID</label>
+                            </div>
+                            <button type="submit" class="btn btn-modern btn-gradient-info w-100" id="renewBtn">Renew
+                                Book</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Quick Actions (Add Book & Add Student) -->
+            <h5 class="fw-bold mt-5 mb-3 text-success"><i class="bi bi-lightning-fill me-2"></i>Quick Actions</h5>
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 col-lg-6">
+                    <div class="glass-panel analytics-card p-4 h-100 d-flex flex-column justify-content-between">
+                        <div class="d-flex align-items-start gap-3 mb-3">
+                            <div class="icon-box icon-blue" style="min-width: 60px; height: 60px; border-radius: 16px;">
+                                <i class="bi bi-book-fill"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-1">Book Management</h5>
+                                <p class="small text-muted mb-0">ആപ്പിലേക്ക് പുതിയ ബുക്ക് ചേർക്കുക</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-modern btn-gradient-primary w-100 fw-bold py-2 mt-auto"
+                            data-bs-toggle="modal" data-bs-target="#addBookModal">
+                            <i class="bi bi-plus-lg me-1"></i> പുതിയ Book Add ചെയ്യുക
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="glass-panel analytics-card p-4 h-100 d-flex flex-column justify-content-between">
+                        <div class="d-flex align-items-start gap-3 mb-3">
+                            <div class="icon-box icon-green"
+                                style="min-width: 60px; height: 60px; border-radius: 16px;"><i
+                                    class="bi bi-person-plus-fill"></i></div>
+                            <div>
+                                <h5 class="fw-bold mb-1">Student Registration</h5>
+                                <p class="small text-muted mb-0">പുതിയ വിദ്യാർത്ഥിയെ രജിസ്റ്റർ ചെയ്യുക / എഡിറ്റ് ചെയ്യുക
+                                </p>
+                            </div>
+                        </div>
+                        <button class="btn btn-modern btn-gradient-success w-100 fw-bold py-2 mt-auto"
+                            data-bs-toggle="modal" data-bs-target="#addMemberModal">
+                            <i class="bi bi-person-plus-fill me-1"></i> Student Add/Edit
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fine & Settings -->
+            <h5 class="fw-bold mt-5 mb-3 text-danger"><i class="bi bi-cash-stack me-2"></i>Fine Management & Rules</h5>
+            <div class="row g-4 align-items-stretch">
+                <div class="col-lg-4 d-flex flex-column gap-4">
+                    <div class="glass-panel analytics-card bg-light">
+                        <h6 class="fw-bold mb-4 text-muted"><i class="bi bi-gear-fill me-2"></i>Library Settings</h6>
+                        <form id="settingsForm" onsubmit="submitSettings(event)">
+                            <div class="mb-3">
+                                <label class="small fw-bold text-muted">Max Issue Days</label>
+                                <input type="number" class="form-control bg-white" id="setDays" required min="1">
+                            </div>
+                            <div class="mb-3">
+                                <label class="small fw-bold text-muted">Fine Amount (Per Day)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text border-0 bg-white">₹</span>
+                                    <input type="number" class="form-control border-0 bg-white" id="setFine" required
+                                        min="0">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="small fw-bold text-muted">Admin Password</label>
+                                <input type="password" class="form-control bg-white" id="setPass" placeholder="Leave blank to keep current password">
+                            </div>
+                            <button type="submit" class="btn btn-outline-secondary rounded-pill w-100 fw-bold"
+                                id="saveSetBtn">Save Rules</button>
+                        </form>
+                    </div>
+
+                    <!-- Category Prefix Manager Card -->
+                    <div class="glass-panel analytics-card bg-light">
+                        <h6 class="fw-bold mb-4 text-muted"><i class="bi bi-tags-fill me-2"></i>Category Prefix Manager
+                        </h6>
+                        <form id="categoryManagerForm" onsubmit="submitCategoryPrefix(event)">
+                            <div class="mb-3">
+                                <label class="small fw-bold text-muted">Category Name</label>
+                                <input type="text" class="form-control bg-white" id="newCatName"
+                                    placeholder="e.g., Fiction" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="small fw-bold text-muted">Book ID Prefix Code</label>
+                                <input type="text" class="form-control bg-white" id="newCatPrefix"
+                                    placeholder="e.g., FIC" required style="text-transform: uppercase;">
+                            </div>
+                            <button type="submit" class="btn btn-outline-primary rounded-pill w-100 fw-bold"
+                                id="saveCatBtn">Save Category Prefix</button>
+                        </form>
+                        <div class="mt-4 pt-3 border-top">
+                            <label class="small fw-bold text-muted d-block mb-2">Existing Category Prefixes</label>
+                            <div class="table-responsive" style="max-height: 150px; overflow-y: auto;">
+                                <table class="table table-sm table-hover align-middle mb-0" style="font-size: 0.85rem;">
+                                    <thead>
+                                        <tr>
+                                            <th>Category</th>
+                                            <th>Prefix</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adminCategoriesBody">
+                                        <tr>
+                                            <td colspan="2" class="text-center text-muted">Loading...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="glass-panel analytics-card h-100 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="fw-bold text-danger mb-0">Unpaid Fines Record</h6>
+                            <button class="btn btn-sm btn-outline-danger rounded-pill px-3"
+                                onclick="downloadPDF('finePrintArea', 'Unpaid_Fines')">PDF</button>
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-3 mb-3">
+                            <div
+                                class="d-flex align-items-center bg-white px-3 py-2 rounded-pill shadow-sm border border-success">
+                                <i class="bi bi-cash-stack text-success me-2 fs-5"></i>
+                                <div class="me-3 small text-muted fw-bold">Total Paid</div>
+                                <h5 id="totalPaidFine" class="text-success fw-bold mb-0 m-0">₹0</h5>
+                            </div>
+                            <div
+                                class="d-flex align-items-center bg-white px-3 py-2 rounded-pill shadow-sm border border-danger">
+                                <i class="bi bi-exclamation-circle-fill text-danger me-2 fs-5"></i>
+                                <div class="me-3 small text-muted fw-bold">Total Unpaid</div>
+                                <h5 id="totalUnpaidFine" class="text-danger fw-bold mb-0 m-0">₹0</h5>
+                            </div>
+                        </div>
+
+                        <div id="finePrintArea" class="flex-grow-1 bg-white p-2 rounded-4">
+                            <h4 class="pdf-title fw-bold text-center mb-3 text-danger" style="display:none;">Unpaid
+                                Fines</h4>
+                            <div class="table-responsive">
+                                <table class="table table-modern table-borderless align-middle mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Student</th>
+                                            <th>Book</th>
+                                            <th>Amount</th>
+                                            <th class="hide-in-pdf">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="unpaidFinesBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. REPORTS -->
+        <div id="reports" class="page-section">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 mt-2 gap-3">
+                <h4 class="section-title mb-0">Detailed Reports</h4>
+
+                <div class="dropdown custom-dropdown">
+                    <button class="btn dropdown-toggle px-4" type="button" data-bs-toggle="dropdown"
+                        id="globalReportFilterBtn">
+                        <i class="bi bi-funnel-fill me-1"></i> All Time
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow">
+                        <li><a class="dropdown-item active" href="#"
+                                onclick="changeReportFilter('all', 'All Time', event)">All Time</a></li>
+                        <li><a class="dropdown-item" href="#"
+                                onclick="changeReportFilter('month', 'Last 30 Days', event)">Last 30 Days</a></li>
+                        <li><a class="dropdown-item" href="#"
+                                onclick="changeReportFilter('year', 'Last 365 Days', event)">Last 365 Days</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row g-4 align-items-stretch">
+                <div class="col-md-6">
+                    <div class="glass-panel analytics-card h-100 d-flex flex-column">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="fw-bold text-danger mb-3"><i
+                                    class="bi bi-exclamation-triangle-fill me-2"></i>Overdue List</h5><button
+                                class="btn btn-sm btn-light rounded-circle" onclick="downloadPDF('repOD', 'Overdue')"><i
+                                    class="bi bi-printer"></i></button>
+                        </div>
+                        <div id="repOD" class="table-responsive bg-white p-2 rounded flex-grow-1">
+                            <h4 class="pdf-title d-none text-danger text-center">Overdue</h4>
+                            <table class="table table-modern table-sm mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Book</th>
+                                        <th>Delay</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="repOverdue"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="glass-panel analytics-card h-100 d-flex flex-column">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="fw-bold text-primary mb-3"><i class="bi bi-bar-chart-fill me-2"></i>Most Issued
+                                Books</h5><button class="btn btn-sm btn-light rounded-circle"
+                                onclick="downloadPDF('repPB', 'Popular_Books')"><i class="bi bi-printer"></i></button>
+                        </div>
+                        <div id="repPB" class="table-responsive bg-white p-2 rounded flex-grow-1">
+                            <h4 class="pdf-title d-none text-primary text-center">Popular Books</h4>
+                            <table class="table table-modern table-sm mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Book Name</th>
+                                        <th>Times Issued</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="repPopBooks"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="glass-panel analytics-card h-100 d-flex flex-column">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="fw-bold text-success mb-3"><i class="bi bi-mortarboard-fill me-2"></i>Top
+                                Students</h5><button class="btn btn-sm btn-light rounded-circle"
+                                onclick="downloadPDF('repTS', 'Top_Students')"><i class="bi bi-printer"></i></button>
+                        </div>
+                        <div id="repTS" class="table-responsive bg-white p-2 rounded flex-grow-1">
+                            <h4 class="pdf-title d-none text-success text-center">Top Students</h4>
+                            <table class="table table-modern table-sm mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Books</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="repTopStudents"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="glass-panel analytics-card h-100 d-flex flex-column">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="fw-bold text-info mb-3"><i class="bi bi-pie-chart-fill me-2"></i>Class-wise
+                                Report</h5><button class="btn btn-sm btn-light rounded-circle"
+                                onclick="downloadPDF('repCW', 'Class_Report')"><i class="bi bi-printer"></i></button>
+                        </div>
+                        <div id="repCW" class="table-responsive bg-white p-2 rounded flex-grow-1">
+                            <h4 class="pdf-title d-none text-info text-center">Class Report</h4>
+                            <table class="table table-modern table-sm mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Class</th>
+                                        <th>Books Read</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="repClass"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal fade" id="addBookModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold">പുതിയ Book Add ചെയ്യുക</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addBookForm" onsubmit="submitNewBook(event)">
+                        <div class="row g-3">
+                            <div class="col-md-6"><input type="text" class="form-control" id="bkId"
+                                    placeholder="Book ID" required></div>
+                            <div class="col-md-6"><input type="text" class="form-control" id="bkRack"
+                                    placeholder="Rack No"></div>
+                            <div class="col-12"><input type="text" class="form-control" id="bkTitle"
+                                    placeholder="Book Title" required></div>
+                            <div class="col-12"><input type="text" class="form-control" id="bkAuthor"
+                                    placeholder="Author" required></div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <select class="form-select" id="bkCategory" required
+                                        onchange="suggestNextBookId(this.value)"
+                                        style="border-top-right-radius: 0; border-bottom-right-radius: 0;">
+                                        <option value="" disabled selected>Category Select</option>
+                                    </select>
+                                    <button class="btn btn-outline-primary" type="button"
+                                        onclick="promptAddNewCategory()"
+                                        style="border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 12px; border-bottom-right-radius: 12px;"
+                                        title="Add New Category">
+                                        <i class="bi bi-plus-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-6"><input type="number" class="form-control" id="bkTotal"
+                                    placeholder="Total Copies (Stock)" required min="1"></div>
+                            <div class="col-12"><select class="form-select" id="bkType">
+                                    <option value="Issuable">Issuable</option>
+                                    <option value="Reference">Reference Only</option>
+                                </select></div>
+                        </div>
+                        <div class="mt-4"><button type="submit" class="btn btn-modern btn-gradient-primary w-100"
+                                id="saveBtn">Save Book</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Book Modal -->
+    <div class="modal fade" id="editBookModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-warning">പുസ്തകത്തിന്റെ വിവരങ്ങൾ തിരുത്തുക</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editBookForm" onsubmit="submitEditBook(event)">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-muted mb-1">Book ID (മാറ്റാൻ സാധിക്കില്ല)</label>
+                                <input type="text" class="form-control bg-light fw-bold" id="editBkId" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-muted mb-1">Rack No</label>
+                                <input type="text" class="form-control" id="editBkRack" placeholder="Rack No">
+                            </div>
+                            <div class="col-12">
+                                <label class="small fw-bold text-muted mb-1">Book Title</label>
+                                <input type="text" class="form-control" id="editBkTitle" placeholder="Book Title"
+                                    required>
+                            </div>
+                            <div class="col-12">
+                                <label class="small fw-bold text-muted mb-1">Author</label>
+                                <input type="text" class="form-control" id="editBkAuthor" placeholder="Author" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-muted mb-1">Category</label>
+                                <select class="form-select" id="editBkCategory" required>
+                                    <!-- Dynamic options -->
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-muted mb-1">Total Copies (Stock)</label>
+                                <input type="number" class="form-control" id="editBkTotal" placeholder="Total Copies"
+                                    required min="1">
+                            </div>
+                            <div class="col-12">
+                                <label class="small fw-bold text-muted mb-1">Type</label>
+                                <select class="form-select" id="editBkType">
+                                    <option value="Issuable">Issuable</option>
+                                    <option value="Reference">Reference Only</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-modern btn-gradient-warning w-100 fw-bold"
+                                id="editSaveBtn">Update Book</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addMemberModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-success">Student Add/Edit</h5><button type="button"
+                        class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addMemberForm" onsubmit="submitNewMember(event)">
+                        <div class="row g-3">
+                            <div class="col-md-6"><input type="text" class="form-control" id="memId"
+                                    placeholder="Student ID" required></div>
+                            <div class="col-md-6"><input type="text" class="form-control" id="memName"
+                                    placeholder="Full Name" required></div>
+                            <div class="col-12"><input type="text" class="form-control" id="memClass"
+                                    placeholder="Class / Dept"></div>
+                            <div class="col-12 d-none"><select class="form-select" id="memRole">
+                                    <option value="Student" selected>Student</option>
+                                </select></div>
+                        </div>
+                        <div class="mt-4"><button type="submit" class="btn btn-modern btn-gradient-success w-100"
+                                id="saveMemBtn">Save Student</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Member Modal -->
+    <div class="modal fade" id="editMemberModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-warning">Student വിവരങ്ങൾ തിരുത്തുക</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editMemberForm" onsubmit="submitEditMember(event)">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-muted mb-1">Student ID (മാറ്റാൻ സാധിക്കില്ല)</label>
+                                <input type="text" class="form-control bg-light fw-bold" id="editMemId" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-muted mb-1">Class / Dept</label>
+                                <input type="text" class="form-control" id="editMemClass" placeholder="Class / Dept"
+                                    required>
+                            </div>
+                            <div class="col-12">
+                                <label class="small fw-bold text-muted mb-1">Full Name</label>
+                                <input type="text" class="form-control" id="editMemName" placeholder="Full Name"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-modern btn-gradient-warning w-100 fw-bold"
+                                id="editSaveMemBtn">Update Student</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="profileModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-primary"><i class="bi bi-person-lines-fill me-2"></i>Student
+                        Profile</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="p-3 bg-light border-bottom">
+                        <h6 class="fw-bold text-danger mb-2">Currently Issued Books</h6>
+                        <div id="profCurrent">Loading...</div>
+                    </div>
+                    <div class="p-3">
+                        <h6 class="fw-bold text-muted mb-2">Student History</h6>
+                        <div id="profHistory">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="bookHistoryModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-info"><i class="bi bi-clock-history me-2"></i>Book History -
+                        <span id="histBookName" class="text-dark"></span>
+                    </h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="table-responsive p-3">
+                        <table class="table table-modern align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Issue Date</th>
+                                    <th>Return Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bookHistoryBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // --- GitHub Pages - Google Apps Script Integration Polyfill ---
+        // Deploy your Google Apps Script project as a Web App (Access: "Anyone", Execute as: "Me") 
+        // and paste the Web App URL (ending in /exec) here:
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxK6529smEIW3axE4U-Qax1AQvn7KjePpDwTDMqqtNAX2IFDDEzHu_vWJUXMmzo41gyyA/exec";
+
+        const nativeRun = window.google && window.google.script && window.google.script.run;
+        let adminSession = null;
+        try { adminSession = JSON.parse(sessionStorage.getItem('iqraaAdminSession') || 'null'); } catch (_) {}
+        function saveSession(value) {
+            adminSession = value;
+            try { if(value) sessionStorage.setItem('iqraaAdminSession', JSON.stringify(value)); else sessionStorage.removeItem('iqraaAdminSession'); } catch (_) {}
+        }
+        async function requestApi(functionName, args = []) {
+            const payload = {functionName, args, token: adminSession && adminSession.token};
+            let response;
+            if (nativeRun) {
+                response = await new Promise((resolve,reject) => nativeRun.withSuccessHandler(resolve).withFailureHandler(reject).apiCall(payload));
+            } else {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 45000);
+                try {
+                    const res = await fetch(WEB_APP_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload), signal:controller.signal, cache:'no-store'});
+                    if(!res.ok) throw new Error('Connection failed (HTTP '+res.status+').');
+                    response = await res.json();
+                } finally { clearTimeout(timeout); }
+            }
+            if(!response || !response.success) {
+                if(response && response.code === 'SESSION_EXPIRED') { saveSession(null); isAdminAuthenticated=false; toggleAdminUIElements(); }
+                throw new Error(response && response.error || 'The server did not return a valid response.');
+            }
+            return response.result;
+        }
+        window.google = window.google || {};
+        window.google.script = window.google.script || {};
+        window.google.script.run = (function Runner(success, failure) {
+            return new Proxy({}, {get(_, name) {
+                if(name === 'withSuccessHandler') return cb => Runner(cb,failure);
+                if(name === 'withFailureHandler') return cb => Runner(success,cb);
+                return (...args) => requestApi(name,args).then(result => { if(success) success(result); }).catch(error => {
+                    if(failure) failure(error.message); else showError(error.message);
+                });
+            }});
+        })();
+
+
+
+        function dismissWelcome() {
+            const splash=document.getElementById('splashScreen'); if(!splash) return;
+            splash.classList.add('fade-out-active');setTimeout(()=>splash.remove(),600);
+        }
+
+        document.addEventListener('DOMContentLoaded',()=>{
+            const search=document.querySelector('.workspace-search'),desktop=document.querySelector('.workspace-header'),slot=document.querySelector('.mobile-search-slot'),identity=document.querySelector('.workspace-identity');
+            function placeSearch(){
+                const mobile=window.innerWidth<992;
+                if(mobile && search.parentElement!==slot)slot.append(search);
+                if(!mobile && search.parentElement!==desktop)desktop.insertBefore(search,identity);
+                document.getElementById('workspaceSearch').placeholder=mobile?'Search…':'Search books or students…';
+            }
+            placeSearch();window.addEventListener('resize',placeSearch);
+        });
+
+
+        let identityVersion=0;
+        const identityReady={member:false,book:false},identityError={member:false,book:false};
+        function identityKey(value){return String(value||'').trim().replace(/\s+/g,'').toUpperCase();}
+        function identityMatches(kind,value){
+            const key=identityKey(value);if(!key)return [];
+            return (kind==='book'?allBooksCache:allMembersCache).filter(item=>identityKey(item.id)===key);
+        }
+        function updateIdentityHint(input,kind,canonicalize=false){
+            const hint=document.getElementById(input.id+'Identity');if(!hint)return;
+            const value=input.value.trim();hint.hidden=!value;if(!value){hint.textContent='';return;}
+            if(!identityReady[kind]){hint.dataset.state=identityError[kind]?'error':'loading';hint.textContent=identityError[kind]?'വിവരം ലോഡ് ചെയ്യാനായില്ല. Admin വീണ്ടും തുറന്ന് ശ്രമിക്കൂ.':'വിവരം പരിശോധിക്കുന്നു…';return;}
+            const matches=identityMatches(kind,value);
+            if(matches.length!==1){hint.dataset.state='missing';hint.textContent=matches.length>1?'ഒരേ ID ഒന്നിലധികം റെക്കോർഡുകളിൽ ഉണ്ട്. ID പരിശോധിക്കുക.':kind==='book'?'ഈ ID-യിൽ ബുക്ക് കണ്ടെത്തിയില്ല.':'ഈ ID-യിൽ വിദ്യാർത്ഥിയെ കണ്ടെത്തിയില്ല.';return;}
+            const item=matches[0];hint.dataset.state='found';
+            hint.textContent=kind==='book'?'📖 '+item.title+' · '+item.id:'👤 '+item.name+' · '+item.id+(item.className?' · Class '+item.className:'');
+            if(canonicalize)input.value=String(item.id);
+        }
+        function refreshIdentityHints(){
+            for(const action of ['issue','return','renew'])for(const kind of ['member','book']){
+                const input=document.getElementById(action+(kind==='member'?'MemberId':'BookId'));if(input)updateIdentityHint(input,kind);
+            }
+        }
+        async function loadIdentityData(){
+            const version=++identityVersion;identityReady.member=false;identityReady.book=false;identityError.member=false;identityError.book=false;refreshIdentityHints();
+            await Promise.all(['member','book'].map(async kind=>{
+                try{const data=await requestApi(kind==='member'?'getAllMembers':'getAllBooks');if(version!==identityVersion)return;if(kind==='member')allMembersCache=data;else allBooksCache=data;identityReady[kind]=true;}
+                catch(error){if(version!==identityVersion)return;identityError[kind]=true;}
+                if(version===identityVersion)refreshIdentityHints();
+            }));
+        }
+        document.addEventListener('DOMContentLoaded',()=>{
+            for(const action of ['issue','return','renew']){
+                for(const kind of ['member','book']){
+                    const input=document.getElementById(action+(kind==='member'?'MemberId':'BookId')),hint=document.createElement('div');
+                    hint.id=input.id+'Identity';hint.className='id-identity-hint';hint.hidden=true;hint.setAttribute('role','status');hint.setAttribute('aria-live','polite');hint.setAttribute('aria-atomic','true');
+                    input.setAttribute('aria-describedby',hint.id);input.parentElement.insertAdjacentElement('afterend',hint);
+                    input.addEventListener('input',()=>updateIdentityHint(input,kind));input.addEventListener('blur',()=>updateIdentityHint(input,kind,true));
+                }
+                document.getElementById(action+'Form').addEventListener('reset',()=>setTimeout(refreshIdentityHints,0));
+            }
+        });
+
+        let workspaceSearchVersion=0;
+        async function searchWorkspace(event) {
+            event.preventDefault();
+            const query=document.getElementById('workspaceSearch').value.trim(), results=document.getElementById('workspaceSearchResults');
+            const version=++workspaceSearchVersion; results.replaceChildren();
+            if(!query){results.hidden=true;return;} results.hidden=false;
+            const status=document.createElement('p');status.textContent='Searching books and students…';results.append(status);
+            try {
+                const [books,members]=await Promise.all([requestApi('getAllBooks'),requestApi('getAllMembers')]);
+                if(version!==workspaceSearchVersion)return;results.replaceChildren();
+                const lower=query.toLocaleLowerCase();
+                const matchedBooks=books.filter(b=>matchesBook(b,query)).slice(0,6);
+                const matchedMembers=members.filter(m=>[m.id,m.name,m.className].some(v=>String(v||'').toLocaleLowerCase().includes(lower))).slice(0,6);
+                for(const [kind,items] of [['book',matchedBooks],['student',matchedMembers]])for(const item of items){
+                    const button=document.createElement('button');button.type='button';button.textContent=(kind==='book'?'Book · ':'Student · ')+item.id+' — '+(item.title||item.name);
+                    button.addEventListener('click',()=>{const page=kind==='book'?'books':'members';const field=document.getElementById(kind==='book'?'searchBookInput':'searchMemberInput');field.value=String(item.id);if(kind==='book'){document.getElementById('bookPrefixFilter').value='';document.getElementById('bookCategoryFilter').value='';document.getElementById('availFilter').checked=false;}results.hidden=true;showPage(page);});results.append(button);
+                }
+                if(!matchedBooks.length && !matchedMembers.length){const empty=document.createElement('p');empty.textContent='No matching books or students.';results.append(empty);}
+            } catch(error){if(version!==workspaceSearchVersion)return;results.replaceChildren();status.textContent=error.message;results.append(status);}
+        }
+        document.addEventListener('DOMContentLoaded',()=>{
+            const date=document.getElementById('workspaceDate');if(date)date.textContent=new Intl.DateTimeFormat('en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'}).format(new Date());
+            document.addEventListener('click',event=>{if(!event.target.closest('.workspace-search'))document.getElementById('workspaceSearchResults').hidden=true;});
+            document.getElementById('workspaceSearch').addEventListener('keydown',event=>{if(event.key==='Escape'){workspaceSearchVersion++;document.getElementById('workspaceSearchResults').hidden=true;}});
+        });
+
+        let booksLoadVersion=0, membersLoadVersion=0, allMembersCache=[];
+        function escapeHtml(value) { return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+        document.addEventListener('click', event => {
+            const button=event.target.closest('[data-action]'); if(!button) return;
+            const id=button.dataset.id, action=button.dataset.action;
+            const book=allBooksCache.find(b=>String(b.id)===id), member=allMembersCache.find(m=>String(m.id)===id);
+            if(action==='book-history' && book) viewBookHistory(id,book.title);
+            if(action==='book-edit') openEditBookModal(id);
+            if(action==='member-history') viewProfile(id);
+            if(action==='member-edit' && member) openEditMemberModal(id,member.name,member.className);
+            if(action.endsWith('-delete')) deleteRecord(action.startsWith('book-')?'book':'member',id);
+        });
+        async function deleteRecord(kind,id) {
+            if(!isAdminAuthenticated) return;
+            const result=await Swal.fire({title:'Delete '+(kind==='book'?'book':'student')+'?', text:'ID: '+id+'. Records with transaction history are protected. This action cannot be undone.', icon:'warning', showCancelButton:true, confirmButtonText:'Delete', confirmButtonColor:'#dc2626', showLoaderOnConfirm:true,
+                preConfirm:async()=>{ try { return await requestApi(kind==='book'?'deleteBook':'deleteMember',[id]); } catch(error){Swal.showValidationMessage(error.message);return false;} }, allowOutsideClick:()=>!Swal.isLoading()});
+            if(result.isConfirmed && result.value) { kind==='book'?loadBooksTable():loadMembersTable(); loadDashboardData(); showSuccess(result.value); }
+        }
+        document.addEventListener('DOMContentLoaded',()=>{
+            if(nativeRun) document.querySelectorAll('img[src="idcon.jpg"],img[src="idcon.png"]').forEach(img=>{img.src='https://raw.githubusercontent.com/albahjavisualhub/IQRAA-Library/main/'+img.getAttribute('src');});
+            document.querySelectorAll('.nav-link[onclick]').forEach(el=>{el.setAttribute('tabindex','0');el.setAttribute('role','button');el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click();}});});
+            document.querySelectorAll('.modal').forEach(el=>{
+                el.addEventListener('hidden.bs.modal',()=>{if(!document.querySelector('.modal.show')){document.body.style.overflow='';document.body.style.paddingRight='';}});
+                el.addEventListener('shown.bs.modal',()=>{const input=el.querySelector('input:not([readonly])');if(input)input.focus();});
+            });
+        });
+
+        let activeCategories = [];
+        let allBooksCache = [];
+        let cachedCategoriesWithPrefixes = [];
+
+        function initApp() {
+            loadDashboardData();
+            google.script.run.withSuccessHandler(books => { allBooksCache=books; }).getAllBooks();
+            loadCategoryPrefixes();
+            if(adminSession && adminSession.expiresAt > Date.now()) {
+                requestApi('validateSession').then(() => { isAdminAuthenticated=true; toggleAdminUIElements(); }).catch(() => saveSession(null));
+            } else saveSession(null);
+        }
+
+        function closeNavbar() {
+            let navbarCollapse = document.getElementById('navbarNav');
+            if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                let bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+                if (!bsCollapse) {
+                    bsCollapse = new bootstrap.Collapse(navbarCollapse);
+                }
+                bsCollapse.hide();
+            }
+        }
+
+        function safeHideModal(modalId) {
+            const el=document.getElementById(modalId);
+            if(!el) return;
+            const modal=bootstrap.Modal.getInstance(el);
+            if(modal) modal.hide();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initApp();
+
+            // Auto-dismiss splash screen after 3 seconds
+            setTimeout(() => {
+                const splash = document.getElementById('splashScreen');
+                if (splash) {
+                    splash.classList.add('fade-out-active');
+                    // Remove from DOM after fade-out transition completes (600ms)
+                    setTimeout(() => {
+                        splash.remove();
+                    }, 600);
+                }
+            }, 3000);
+
+            // Close navbar when clicking outside
+            document.addEventListener('click', (event) => {
+                let navbarCollapse = document.getElementById('navbarNav');
+                let navbarToggler = document.querySelector('.navbar-toggler');
+                if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                    if (!navbarCollapse.contains(event.target) && !(navbarToggler && navbarToggler.contains(event.target))) {
+                        closeNavbar();
+                    }
+                }
+            });
+        });
+
+        let isAdminAuthenticated = false;
+
+        async function showPage(pageId) {
+            closeNavbar();
+            if ((pageId === 'transactions' || pageId === 'reports') && !isAdminAuthenticated) {
+                const result=await Swal.fire({title:'Admin sign in', text:'അഡ്മിൻ പാസ്‌വേഡ് നൽകുക', input:'password', showCancelButton:true, confirmButtonText:'Sign in', showLoaderOnConfirm:true,
+                    preConfirm: async password => {
+                        try { return await requestApi('authenticateAdmin',[password]); }
+                        catch(error) { Swal.showValidationMessage(error.message); return false; }
+                    }, allowOutsideClick: () => !Swal.isLoading()});
+                if(!result.isConfirmed || !result.value) return;
+                saveSession(result.value); isAdminAuthenticated=true;
+            }
+            actualShowPage(pageId);
+        }
+
+        function actualShowPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(page => page.style.display = 'none');
+            document.getElementById(pageId).style.display = 'block';
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            document.getElementById('nav-' + pageId).classList.add('active');
+
+            if (pageId === 'books') loadBooksTable();
+            if (pageId === 'members') loadMembersTable();
+            if (pageId === 'reports') loadReportsData();
+            if (pageId === 'transactions') { loadSettings(); loadFineDetails(); loadIdentityData(); }
+            toggleAdminUIElements();
+        }
+
+        function lockAdmin() {
+            requestApi('logoutAdmin').catch(() => {});
+            saveSession(null); isAdminAuthenticated=false;
+            showPage('dashboard'); toggleAdminUIElements();
+            showSuccess('Admin session locked.');
+        }
+
+        // Clean Solid Alerts
+        function showSuccess(msg) { Swal.fire({ title: 'Success!', text: msg, icon: 'success', confirmButtonColor: '#4f46e5', timer: 2500, showConfirmButton: false }); }
+        function showError(msg) { Swal.fire({ title: 'Attention!', text: msg, icon: 'warning', confirmButtonColor: '#ef4444' }); }
+
+        // Dashboard
+        function filterReaders(value = 'all', text = 'All Time', event = null) {
+            if (event) {
+                event.preventDefault();
+                document.getElementById('readerFilterBtn').innerHTML = `<i class="bi bi-calendar-event-fill text-muted me-1"></i> ${text}`;
+                document.querySelectorAll('#readerFilterBtn + .dropdown-menu .dropdown-item').forEach(el => el.classList.remove('active'));
+                event.target.classList.add('active');
+            }
+            document.getElementById('dashTopReaders').innerHTML = '<tr><td colspan="3" class="text-center text-primary py-3"><div class="spinner-border spinner-border-sm me-2"></div>Filtering...</td></tr>';
+            google.script.run.withSuccessHandler(data => updateDashboardUI(data)).getDashboardData(value);
+        }
+
+        function loadDashboardData() {
+            ['totalBooks', 'issuedBooks', 'availableBooks', 'overdueCount'].forEach(id => document.getElementById(id).innerText = "...");
+            google.script.run.withSuccessHandler(data => updateDashboardUI(data)).getDashboardData('all');
+        }
+
+        function updateDashboardUI(data) {
+            if (data.error) { showError("Data Error: " + data.error); return; }
+            document.getElementById('totalBooks').innerText = data.totalBooks; document.getElementById('issuedBooks').innerText = data.issuedBooks;
+            document.getElementById('availableBooks').innerText = data.availableBooks; document.getElementById('overdueCount').innerText = data.overdueCount;
+
+            let catHtml = ''; for (const [key, value] of Object.entries(data.categories)) { catHtml += `<span class="badge-custom bg-white text-dark me-2 mb-2 shadow-sm border"><i class="bi bi-tag-fill text-primary"></i> ${escapeHtml(key)}: <span class="text-primary fw-bold">${value}</span></span>`; } document.getElementById('dashCategories').innerHTML = catHtml;
+            let recHtml = ''; data.recentlyAdded.forEach(b => recHtml += `<li class="list-group-item bg-transparent px-0 border-light"><i class="bi bi-book text-muted me-2"></i><b>${escapeHtml(b.title)}</b> <span class="small text-muted">(${escapeHtml(b.category)})</span></li>`); document.getElementById('dashRecent').innerHTML = recHtml || '<li class="list-group-item bg-transparent">No recent books</li>';
+            let trHtml = ''; data.topReaders.forEach((r, i) => trHtml += `<tr><td><i class="bi bi-${i + 1}-circle-fill text-success fs-5"></i></td><td class="fw-bold">${escapeHtml(r.name)}</td><td><span class="badge bg-success rounded-pill">${r.count}</span></td></tr>`); document.getElementById('dashTopReaders').innerHTML = trHtml || '<tr><td colspan="3">No data</td></tr>';
+            let tbHtml = ''; data.topBooksArr.forEach((b, i) => tbHtml += `<tr><td><i class="bi bi-${i + 1}-circle-fill text-primary fs-5"></i></td><td class="fw-bold">${escapeHtml(b.title)}</td><td><span class="badge bg-primary rounded-pill">${b.count}</span></td></tr>`); document.getElementById('dashTopBooks').innerHTML = tbHtml || '<tr><td colspan="3">No data</td></tr>';
+
+            if (data.categories) {
+                populateCategoryDropdown([...activeCategories, ...Object.keys(data.categories), ...cachedCategoriesWithPrefixes.map(c=>c.category)]);
+            }
+        }
+
+        // Reports Filter
+        let currentReportFilter = 'all';
+        function changeReportFilter(value, text, event) {
+            if (event) event.preventDefault();
+            currentReportFilter = value;
+            document.getElementById('globalReportFilterBtn').innerHTML = `<i class="bi bi-funnel-fill me-1"></i> ${text}`;
+            document.querySelectorAll('#globalReportFilterBtn + .dropdown-menu .dropdown-item').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
+            loadReportsData();
+        }
+
+        function loadReportsData() {
+            let filter = currentReportFilter;
+            google.script.run.withSuccessHandler(data => {
+                let odHtml = ''; data.overdueList.forEach(o => odHtml += `<tr><td>${escapeHtml(o.student)}</td><td>${escapeHtml(o.book)}</td><td class="text-danger fw-bold">${o.days} Days</td></tr>`); document.getElementById('repOverdue').innerHTML = odHtml || '<tr><td colspan="3" class="text-center text-success"><i class="bi bi-check-circle"></i> No overdue books</td></tr>';
+                let pbHtml = ''; data.popBooks.forEach(p => pbHtml += `<tr><td>${escapeHtml(p.book)}</td><td class="fw-bold text-primary">${p.count}</td></tr>`); document.getElementById('repPopBooks').innerHTML = pbHtml || '<tr><td colspan="2" class="text-center">No data</td></tr>';
+                let tsHtml = ''; data.topStudents.forEach(t => tsHtml += `<tr><td>${escapeHtml(t.student)}</td><td class="fw-bold text-success">${t.count}</td></tr>`); document.getElementById('repTopStudents').innerHTML = tsHtml || '<tr><td colspan="2" class="text-center">No data</td></tr>';
+                let clHtml = ''; data.classWise.forEach(c => clHtml += `<tr><td>${escapeHtml(c.className)}</td><td class="fw-bold text-info">${c.count}</td></tr>`); document.getElementById('repClass').innerHTML = clHtml || '<tr><td colspan="2" class="text-center">No data</td></tr>';
+            }).getReportsData(filter);
+        }
+
+        // Books 
+        function loadBooksTable() {
+            const tbody=document.getElementById('booksTableBody'), version=++booksLoadVersion;
+            tbody.innerHTML='<tr><td colspan="5" class="text-center py-4">Loading books…</td></tr>';
+            requestApi('getAllBooks').then(books => {
+                if(version !== booksLoadVersion) return;
+                allBooksCache=books;
+                tbody.innerHTML=books.map(b => `<tr data-avail="${Number(b.available)}">
+                    <td class="fw-bold text-primary">${escapeHtml(b.id)}</td>
+                    <td><div class="fw-bold">${escapeHtml(b.title)}</div><div class="small text-muted">${escapeHtml(b.author)}</div></td>
+                    <td><span class="badge-custom bg-light text-dark">${escapeHtml(b.category)}</span></td>
+                    <td><strong class="${b.available>0?'text-success':'text-danger'}">${Number(b.available)}</strong> / ${Number(b.total)}</td>
+                    <td class="hide-in-pdf admin-only-btn ${isAdminAuthenticated?'':'d-none'}"><div class="record-actions">
+                    <button class="btn btn-sm btn-outline-info" data-action="book-history" data-id="${escapeHtml(b.id)}">History</button>
+                    <button class="btn btn-sm btn-outline-primary" data-action="book-edit" data-id="${escapeHtml(b.id)}">Edit</button>
+                    <button class="btn btn-sm btn-outline-danger" data-action="book-delete" data-id="${escapeHtml(b.id)}">Delete</button></div></td>
+                    </tr>`).join('') || '<tr><td colspan="5" class="text-center py-4">No books yet.</td></tr>';
+                populateCategoryDropdown([...books.map(b=>b.category),...cachedCategoriesWithPrefixes.map(c=>c.category)]);
+                populateBookFilters(); searchBooks(); toggleAdminUIElements();
+            }).catch(error => { if(version === booksLoadVersion) { tbody.innerHTML='<tr><td colspan="5" class="text-center py-4"><button class="btn btn-outline-primary" onclick="loadBooksTable()">Retry loading books</button></td></tr>'; showError(error.message); } });
+        }
+        function populateCategoryDropdown(categoriesArray) {
+            let uniqueCats = [...new Set(categoriesArray)].map(c => c ? c.toString().trim() : "").filter(c => c !== "").sort();
+            activeCategories = uniqueCats;
+
+            let selectEl = document.getElementById('bkCategory');
+            if (!selectEl) return;
+
+            let currentVal = selectEl.value;
+            selectEl.innerHTML = '<option value="" disabled selected>Category Select</option>';
+
+            uniqueCats.forEach(cat => {
+                let opt = document.createElement('option');
+                opt.value = cat;
+                opt.textContent = cat;
+                selectEl.appendChild(opt);
+            });
+
+            if (currentVal && uniqueCats.includes(currentVal)) {
+                selectEl.value = currentVal;
+            }
+        }
+
+        function promptAddNewCategory() {
+            Swal.fire({
+                title: 'പുതിയ Category ചേർക്കുക',
+                input: 'text',
+                inputPlaceholder: 'Enter Category Name',
+                showCancelButton: true,
+                confirmButtonText: 'Add',
+                confirmButtonColor: '#01BEFE',
+                cancelButtonColor: '#6c757d',
+                preConfirm: (value) => {
+                    if (!value || value.trim() === "") {
+                        Swal.showValidationMessage('Category name cannot be empty!');
+                        return false;
+                    }
+                    return value.trim();
+                }
+            }).then((result) => {
+                if (result.isConfirmed && result.value) {
+                    let newCat = result.value;
+                    if (!activeCategories.includes(newCat)) {
+                        activeCategories.push(newCat);
+                        populateCategoryDropdown(activeCategories);
+                    }
+                    document.getElementById('bkCategory').value = newCat;
+                    suggestNextBookId(newCat);
+                }
+            });
+        }
+
+        function suggestNextBookId(category) {
+            if (!category) return;
+
+            let prefixRule = cachedCategoriesWithPrefixes.find(c => c.category.toLowerCase() === category.toLowerCase());
+            let targetPrefix = prefixRule ? prefixRule.prefix.toUpperCase().trim() : "";
+
+            let catBooks = [];
+            if (Array.isArray(allBooksCache)) {
+                catBooks = allBooksCache.filter(b => b.category && b.category.toLowerCase() === category.toLowerCase());
+            }
+
+            let nextId = "";
+            if (catBooks.length > 0) {
+                let prefixCounts = {};
+                let maxNumForPrefix = {};
+                let numLengthForPrefix = {};
+
+                catBooks.forEach(b => {
+                    let id = b.id ? b.id.toString().trim() : "";
+                    let match = id.match(/^([a-zA-Z\-_]*?)(\d+)$/);
+                    if (match) {
+                        let prefix = match[1];
+                        let numStr = match[2];
+                        let num = parseInt(numStr, 10);
+
+                        prefixCounts[prefix] = (prefixCounts[prefix] || 0) + 1;
+                        if (maxNumForPrefix[prefix] === undefined || num > maxNumForPrefix[prefix]) {
+                            maxNumForPrefix[prefix] = num;
+                            numLengthForPrefix[prefix] = numStr.length;
+                        }
+                    }
+                });
+
+                let bestPrefix = targetPrefix;
+                if (!bestPrefix) {
+                    let maxCount = -1;
+                    for (let prefix in prefixCounts) {
+                        if (prefixCounts[prefix] > maxCount) {
+                            maxCount = prefixCounts[prefix];
+                            bestPrefix = prefix;
+                        }
+                    }
+                }
+
+                if (bestPrefix !== undefined && maxNumForPrefix[bestPrefix] !== undefined) {
+                    let nextNum = maxNumForPrefix[bestPrefix] + 1;
+                    let padLength = numLengthForPrefix[bestPrefix] || 3;
+                    let nextNumStr = nextNum.toString().padStart(padLength, '0');
+                    nextId = bestPrefix + nextNumStr;
+                } else if (bestPrefix) {
+                    nextId = bestPrefix + "001";
+                }
+            }
+
+            if (!nextId) {
+                let prefix = targetPrefix;
+                if (!prefix) {
+                    let cleanCat = category.replace(/[^a-zA-Z]/g, '');
+                    prefix = cleanCat.substring(0, 3).toUpperCase();
+                    if (prefix.length < 2) prefix = "BK";
+                }
+                nextId = prefix + "001";
+            }
+
+            let bkIdInput = document.getElementById('bkId');
+            if (bkIdInput) {
+                bkIdInput.value = nextId;
+            }
+        }
+
+        function toggleAdminUIElements() {
+            document.querySelectorAll('.admin-only-btn').forEach(btn => {
+                if (isAdminAuthenticated) {
+                    btn.classList.remove('d-none');
+                } else {
+                    btn.classList.add('d-none');
+                }
+            });
+        }
+
+        function loadCategoryPrefixes() {
+            google.script.run.withSuccessHandler(list => {
+                cachedCategoriesWithPrefixes = list || [];
+
+                let cats = cachedCategoriesWithPrefixes.map(c => c.category);
+                populateCategoryDropdown(cats);
+
+                let tbody = document.getElementById('adminCategoriesBody');
+                if (!tbody) return;
+
+                if (cachedCategoriesWithPrefixes.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="2" class="text-center text-muted py-2">No categories yet.</td></tr>';
+                    return;
+                }
+
+                let html = '';
+                cachedCategoriesWithPrefixes.forEach(c => {
+                    html += `<tr>
+                        <td class="fw-bold">${escapeHtml(c.category)}</td>
+                        <td><span class="badge bg-primary px-2 py-1">${escapeHtml(c.prefix)}</span></td>
+                    </tr>`;
+                });
+                tbody.innerHTML = html;
+            }).getCategoriesAndPrefixes();
+        }
+
+        function submitCategoryPrefix(e) {
+            e.preventDefault();
+            let btn = document.getElementById('saveCatBtn');
+            if (btn.disabled) return;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Saving...';
+
+            let category = document.getElementById('newCatName').value;
+            let prefix = document.getElementById('newCatPrefix').value;
+
+            google.script.run
+                .withSuccessHandler(res => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Save Category Prefix';
+                    document.getElementById('categoryManagerForm').reset();
+                    showSuccess(res);
+                    loadCategoryPrefixes();
+                    loadDashboardData();
+                })
+                .withFailureHandler(err => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Save Category Prefix';
+                    showError("Connection failure: " + err);
+                })
+                .addCategoryAndPrefix(category, prefix);
+        }
+
+        function populateEditCategoryDropdown(currentCategory) {
+            let selectEl = document.getElementById('editBkCategory');
+            if (!selectEl) return;
+
+            let mergedCats = [...new Set([...activeCategories, ...cachedCategoriesWithPrefixes.map(c => c.category)])];
+            let uniqueCats = mergedCats.map(c => c ? c.toString().trim() : "").filter(c => c !== "").sort();
+
+            selectEl.innerHTML = '';
+            uniqueCats.forEach(cat => {
+                let opt = document.createElement('option');
+                opt.value = cat;
+                opt.textContent = cat;
+                selectEl.appendChild(opt);
+            });
+
+            if (currentCategory) {
+                selectEl.value = currentCategory;
+            }
+        }
+
+        function openEditBookModal(bookId) {
+            if (!allBooksCache || allBooksCache.length === 0) return;
+            let book = allBooksCache.find(b => b.id.toString().trim() === bookId.toString().trim());
+            if (!book) return;
+
+            document.getElementById('editBkId').value = book.id;
+            document.getElementById('editBkId').dataset.originalId = String(book.id);
+            document.getElementById('editBkRack').value = book.rack || "";
+            document.getElementById('editBkTitle').value = book.title || "";
+            document.getElementById('editBkAuthor').value = book.author || "";
+
+            populateEditCategoryDropdown(book.category);
+
+            document.getElementById('editBkTotal').value = book.total || 1;
+            document.getElementById('editBkType').value = book.type || "Issuable";
+
+            new bootstrap.Modal(document.getElementById('editBookModal')).show();
+        }
+
+        async function submitEditBook(e) {
+            e.preventDefault();
+            let btn = document.getElementById('editSaveBtn');
+            if (btn.disabled) return;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Updating...';
+
+            let bId = document.getElementById('editBkId').dataset.originalId;
+            let bData = {
+                newBookId: document.getElementById('editBkId').value.trim(),
+                title: document.getElementById('editBkTitle').value,
+                author: document.getElementById('editBkAuthor').value,
+                category: document.getElementById('editBkCategory').value,
+                rackNo: document.getElementById('editBkRack').value,
+                totalCopies: document.getElementById('editBkTotal').value,
+                type: document.getElementById('editBkType').value
+            };
+
+            if(bData.newBookId !== bId && !await checkIdEditBackend(btn,'Update Book')) return;
+            google.script.run
+                .withSuccessHandler(res => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Update Book';
+                    safeHideModal('editBookModal');
+                    loadBooksTable();
+                    loadDashboardData();
+                    loadIdentityData();
+                    showSuccess(res);
+                })
+                .withFailureHandler(err => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Update Book';
+                    showError("Connection failure: " + err);
+                })
+                .updateBookDetails(bId, bData);
+        }
+
+        function openEditMemberModal(mId, mName, mClass) {
+            document.getElementById('editMemId').value = mId;
+            document.getElementById('editMemId').dataset.originalId = String(mId);
+            document.getElementById('editMemName').value = mName;
+            document.getElementById('editMemClass').value = mClass;
+            new bootstrap.Modal(document.getElementById('editMemberModal')).show();
+        }
+
+        async function submitEditMember(e) {
+            e.preventDefault();
+            let btn = document.getElementById('editSaveMemBtn');
+            if (btn.disabled) return;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Updating...';
+
+            let mId = document.getElementById('editMemId').dataset.originalId;
+            let mData = {
+                newMemberId: document.getElementById('editMemId').value.trim(),
+                name: document.getElementById('editMemName').value,
+                className: document.getElementById('editMemClass').value
+            };
+
+            if(mData.newMemberId !== mId && !await checkIdEditBackend(btn,'Update Student')) return;
+            google.script.run
+                .withSuccessHandler(res => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Update Student';
+                    safeHideModal('editMemberModal');
+                    loadMembersTable();
+                    loadDashboardData();
+                    loadIdentityData();
+                    showSuccess(res);
+                })
+                .withFailureHandler(err => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Update Student';
+                    showError("Connection failure: " + err);
+                })
+                .updateMemberDetails(mId, mData);
+        }
+
+        function submitNewBook(e) {
+            e.preventDefault();
+            let btn = document.getElementById('saveBtn');
+            if (btn.disabled) return;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Saving...';
+            let bData = { bookId: document.getElementById('bkId').value, rackNo: document.getElementById('bkRack').value, title: document.getElementById('bkTitle').value, author: document.getElementById('bkAuthor').value, category: document.getElementById('bkCategory').value, totalCopies: document.getElementById('bkTotal').value, type: document.getElementById('bkType').value };
+            google.script.run
+                .withSuccessHandler(res => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Save Book';
+                    safeHideModal('addBookModal');
+                    document.getElementById('addBookForm').reset();
+                    loadBooksTable();
+                    loadDashboardData();
+                    showSuccess(res);
+                })
+                .withFailureHandler(err => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Save Book';
+                    showError("Connection failure: " + err);
+                })
+                .addNewBook(bData);
+        }
+        function searchBooks() {
+            const query=document.getElementById('searchBookInput').value.trim(), available=document.getElementById('availFilter').checked;
+            const prefix=document.getElementById('bookPrefixFilter').value, category=document.getElementById('bookCategoryFilter').value;
+            const books=new Map(allBooksCache.map(b=>[String(b.id),b]));let count=0;
+            document.querySelectorAll('#booksTableBody tr[data-avail]').forEach(row=>{
+                const id=row.cells[0].textContent.trim(),book=books.get(id);if(!book)return;
+                const match=matchesBook(book,query) && (!prefix || bookPrefix(book.id)===prefix) && (!category || book.category===category) && (!available || Number(book.available)>0);
+                row.hidden=!match;row.style.display=match?'':'none';if(match)count++;
+            });
+            document.getElementById('bookResultCount').textContent=count+' / '+allBooksCache.length+' books';
+        }
+        function resetBookFilters() {
+            document.getElementById('searchBookInput').value='';document.getElementById('bookPrefixFilter').value='';document.getElementById('bookCategoryFilter').value='';document.getElementById('availFilter').checked=false;searchBooks();
+        }
+        function bookPrefix(id){return (String(id).trim().match(/^[a-z]+/i)||[''])[0].toUpperCase();}
+        function populateBookFilters(){
+            for(const [id,values,label] of [['bookPrefixFilter',allBooksCache.map(b=>bookPrefix(b.id)),'All codes'],['bookCategoryFilter',allBooksCache.map(b=>b.category),'All categories']]){
+                const select=document.getElementById(id),previous=select.value;select.replaceChildren(new Option(label,''));
+                [...new Set(values.filter(Boolean))].sort((a,b)=>a.localeCompare(b)).forEach(value=>select.add(new Option(value,value)));
+                if(values.includes(previous))select.value=previous;
+            }
+        }
+        function romanizeMalayalam(value){
+            const letters={'അ':'a','ആ':'aa','ഇ':'i','ഈ':'ee','ഉ':'u','ഊ':'oo','ഋ':'ri','എ':'e','ഏ':'e','ഐ':'ai','ഒ':'o','ഓ':'o','ഔ':'au','ക':'k','ഖ':'kh','ഗ':'g','ഘ':'gh','ങ':'ng','ച':'ch','ഛ':'ch','ജ':'j','ഝ':'jh','ഞ':'nj','ട':'t','ഠ':'th','ഡ':'d','ഢ':'dh','ണ':'n','ത':'th','ഥ':'th','ദ':'d','ധ':'dh','ന':'n','പ':'p','ഫ':'ph','ബ':'b','ഭ':'bh','മ':'m','യ':'y','ര':'r','റ':'r','ല':'l','ള':'l','ഴ':'zh','വ':'v','ശ':'sh','ഷ':'sh','സ':'s','ഹ':'h','ൺ':'n','ൻ':'n','ർ':'r','ൽ':'l','ൾ':'l','ൿ':'k','ം':'m','ഃ':'h'};
+            const signs={'ാ':'aa','ി':'i','ീ':'ee','ു':'u','ൂ':'oo','ൃ':'ri','െ':'e','േ':'e','ൈ':'ai','ൊ':'o','ോ':'o','ൗ':'au','്':''};
+            const consonants='കഖഗഘങചഛജഝഞടഠഡഢണതഥദധനപഫബഭമയരറലളഴവശഷസഹ';
+            const chars=[...String(value||'').normalize('NFC')];let result='';
+            for(let i=0;i<chars.length;i++){
+                const ch=chars[i];if(consonants.includes(ch)){result+=letters[ch];if(Object.prototype.hasOwnProperty.call(signs,chars[i+1])){result+=signs[chars[++i]];}else result+='a';}
+                else if(ch==='‍'||ch==='‌')continue;else result+=letters[ch]??signs[ch]??ch;
+            }return result;
+        }
+        function phoneticKey(value){return romanizeMalayalam(value).toLowerCase().replace(/[^a-z0-9]/g,'').replace(/ee/g,'i').replace(/oo/g,'u').replace(/aa/g,'a').replace(/th/g,'t').replace(/dh/g,'d').replace(/kh/g,'k').replace(/gh/g,'g').replace(/bh/g,'b').replace(/ph/g,'f').replace(/sh/g,'s').replace(/zh/g,'l').replace(/nr/g,'nt').replace(/(.)\1+/g,'$1');}
+        function matchesBook(book,query){
+            if(!query)return true;const terms=query.toLowerCase().split(/\s+/).filter(Boolean);
+            const text=[book.id,book.title,book.author,book.category].map(v=>String(v||'').toLowerCase()).join(' '), roman=phoneticKey([book.title,book.author].join(' '));
+            return terms.every(term=>text.includes(term) || (phoneticKey(term).length>=2 && roman.includes(phoneticKey(term))));
+        }
+
+        function viewBookHistory(bId, bName) {
+            document.getElementById('histBookName').innerText = bName;
+            document.getElementById('bookHistoryBody').innerHTML = '<tr><td colspan="4" class="text-center py-4">Loading history...</td></tr>';
+            new bootstrap.Modal(document.getElementById('bookHistoryModal')).show();
+            google.script.run.withSuccessHandler(hist => {
+                let html = '';
+                if (hist.length === 0) html = '<tr><td colspan="4" class="text-center text-muted py-4">Nobody has taken this book yet.</td></tr>';
+                else hist.forEach(h => {
+                    let statBadge = h.status === 'Returned' ? '<span class="badge bg-success">Returned</span>' : '<span class="badge bg-warning text-dark">Currently Issued</span>';
+                    html += `<tr><td class="fw-bold">${escapeHtml(h.student)}</td><td class="text-muted">${escapeHtml(h.issueDate)}</td><td class="text-muted">${escapeHtml(h.returnDate)}</td><td>${statBadge}</td></tr>`;
+                });
+                document.getElementById('bookHistoryBody').innerHTML = html;
+            }).getBookHistory(bId);
+        }
+
+        // Members 
+        function loadMembersTable() {
+            const tbody=document.getElementById('membersTableBody'), version=++membersLoadVersion;
+            tbody.innerHTML='<tr><td colspan="4" class="text-center py-4">Loading students…</td></tr>';
+            requestApi('getAllMembers').then(members => {
+                if(version !== membersLoadVersion) return;
+                allMembersCache=members;
+                tbody.innerHTML=members.map(m=>`<tr><td class="fw-bold text-muted">${escapeHtml(m.id)}</td><td class="fw-bold">${escapeHtml(m.name)}</td><td>${escapeHtml(m.className)}</td>
+                    <td class="hide-in-pdf admin-only-btn ${isAdminAuthenticated?'':'d-none'}"><div class="record-actions">
+                    <button class="btn btn-sm btn-outline-info" data-action="member-history" data-id="${escapeHtml(m.id)}">History</button>
+                    <button class="btn btn-sm btn-outline-primary" data-action="member-edit" data-id="${escapeHtml(m.id)}">Edit</button>
+                    <button class="btn btn-sm btn-outline-danger" data-action="member-delete" data-id="${escapeHtml(m.id)}">Delete</button></div></td></tr>`).join('') || '<tr><td colspan="4" class="text-center py-4">No students yet.</td></tr>';
+                searchMembers(); toggleAdminUIElements();
+            }).catch(error => { if(version === membersLoadVersion) { tbody.innerHTML='<tr><td colspan="4" class="text-center py-4"><button class="btn btn-outline-primary" onclick="loadMembersTable()">Retry loading students</button></td></tr>'; showError(error.message); } });
+        }
+        function submitNewMember(e) {
+            e.preventDefault();
+            let btn = document.getElementById('saveMemBtn');
+            if (btn.disabled) return;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Saving...';
+            let mData = { memberId: document.getElementById('memId').value, name: document.getElementById('memName').value, role: "Student", className: document.getElementById('memClass').value };
+            google.script.run
+                .withSuccessHandler(res => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Save Student';
+                    safeHideModal('addMemberModal');
+                    document.getElementById('addMemberForm').reset();
+                    loadMembersTable();
+                    loadDashboardData();
+                    showSuccess(res);
+                })
+                .withFailureHandler(err => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Save Student';
+                    showError("Connection failure: " + err);
+                })
+                .addNewMember(mData);
+        }
+        function searchMembers() { let input = document.getElementById('searchMemberInput').value.toLowerCase(); document.querySelectorAll('#membersTableBody tr').forEach(row => { row.style.display = row.innerText.toLowerCase().includes(input) ? '' : 'none'; }); }
+
+        function viewProfile(mId) {
+            new bootstrap.Modal(document.getElementById('profileModal')).show();
+            google.script.run.withSuccessHandler(data => {
+                let curHtml = ''; if (data.current.length === 0) curHtml = '<div class="text-muted small">No books currently issued.</div>'; else data.current.forEach(c => curHtml += `<div><i class="bi bi-book text-danger"></i> <b>${escapeHtml(c.book)}</b> (Issued: ${escapeHtml(c.issueDate)}, Due: ${escapeHtml(c.dueDate)})</div>`); document.getElementById('profCurrent').innerHTML = curHtml;
+                let histHtml = ''; if (data.history.length === 0) histHtml = '<div class="text-muted small">No past history.</div>'; else data.history.forEach(h => histHtml += `<div><i class="bi bi-check-circle text-success"></i> <b>${escapeHtml(h.book)}</b> (Issued: ${escapeHtml(h.issueDate)}) ${h.fine > 0 ? '<span class="text-danger small">Fine: ₹' + h.fine + '</span>' : ''}</div>`); document.getElementById('profHistory').innerHTML = histHtml;
+            }).getMemberProfileData(mId);
+        }
+
+        // Circulation: Issue / Return / Renew / Reserve
+        function submitIssue(e, override = false) {
+            if (e) e.preventDefault();
+            let bId = document.getElementById('issueBookId').value;
+            let mId = document.getElementById('issueMemberId').value;
+            let btn = document.getElementById('issueBtn');
+            if (btn.disabled) return;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
+
+            google.script.run
+                .withSuccessHandler(res => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Issue Book';
+                    if (res.startsWith("WARNING:")) {
+                        btn.disabled = true;
+                        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Confirming...';
+                        Swal.fire({
+                            title: 'ശ്രദ്ധിക്കുക!',
+                            text: res.replace("WARNING: ", ""),
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Allow (Admin)'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                btn.disabled = false;
+                                submitIssue(null, true);
+                            } else {
+                                btn.disabled = false;
+                                btn.innerHTML = 'Issue Book';
+                            }
+                        });
+                    } else if (res.includes("Error")) {
+                        showError(res);
+                    } else {
+                        showSuccess(res);
+                        document.getElementById('issueForm').reset();
+                        loadDashboardData();
+                    }
+                })
+                .withFailureHandler(err => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Issue Book';
+                    showError("Connection failure: " + err);
+                })
+                .issueBookToStudent(bId, mId, override);
+        }
+
+        function submitReturn(e) {
+            e.preventDefault();
+            let btn = document.getElementById('returnBtn');
+            if (btn.disabled) return;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
+
+            google.script.run
+                .withSuccessHandler(res => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Return & Calc Fine';
+                    if (res.includes("Error")) {
+                        showError(res);
+                    } else {
+                        showSuccess(res);
+                        document.getElementById('returnForm').reset();
+                        loadDashboardData();
+                        loadFineDetails();
+                    }
+                })
+                .withFailureHandler(err => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Return & Calc Fine';
+                    showError("Connection failure: " + err);
+                })
+                .returnBookFromStudent(document.getElementById('returnBookId').value, document.getElementById('returnMemberId').value);
+        }
+
+        function submitRenew(e) {
+            e.preventDefault();
+            let bId = document.getElementById('renewBookId').value;
+            let mId = document.getElementById('renewMemberId').value;
+            let btn = document.getElementById('renewBtn');
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Renewing...';
+            if (btn.disabled) return;
+            btn.disabled = true;
+
+            google.script.run
+                .withSuccessHandler(res => {
+                    btn.innerHTML = 'Renew Book';
+                    btn.disabled = false;
+                    if (res.includes("Error")) {
+                        showError(res);
+                    } else {
+                        showSuccess(res);
+                        document.getElementById('renewForm').reset();
+                        loadDashboardData();
+                    }
+                })
+                .withFailureHandler(err => {
+                    btn.innerHTML = 'Renew Book';
+                    btn.disabled = false;
+                    showError("Connection failure: " + err);
+                })
+                .renewBook(bId, mId);
+        }
+
+
+        // Settings & Fines
+        function loadSettings() {
+            google.script.run.withSuccessHandler(s => {
+                document.getElementById('setDays').value = s.maxDays;
+                document.getElementById('setFine').value = s.finePerDay;
+                document.getElementById('setPass').value = "";
+                
+            }).getSystemSettings();
+        }
+        function submitSettings(e) {
+            e.preventDefault();
+            let btn = document.getElementById('saveSetBtn');
+            if (btn.disabled) return;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Saving...';
+
+            let maxDays = document.getElementById('setDays').value;
+            let fine = document.getElementById('setFine').value;
+            let pass = document.getElementById('setPass').value;
+
+            google.script.run
+                .withSuccessHandler(res => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Save Rules';
+                    showSuccess(res);
+                    
+                })
+                .withFailureHandler(err => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Save Rules';
+                    showError("Connection failure: " + err);
+                })
+                .updateSystemSettings(maxDays, fine, pass);
+        }
+        function loadFineDetails() {
+            google.script.run.withSuccessHandler(data => {
+                document.getElementById('totalPaidFine').innerText = '₹' + data.paidAmount;
+                document.getElementById('totalUnpaidFine').innerText = '₹' + data.unpaidAmount;
+                let tbody = document.getElementById('unpaidFinesBody');
+                if (data.list.length === 0) { tbody.innerHTML = '<tr><td colspan="4" class="text-center text-success py-4">No unpaid fines!</td></tr>'; return; }
+                let html = '';
+                data.list.forEach(f => { html += `<tr><td><div class="fw-bold">${escapeHtml(f.memberName)}</div><div class="small text-muted">ID: ${escapeHtml(f.memberId)}</div></td><td class="text-muted">${escapeHtml(f.bookId)}</td><td class="fw-bold text-danger">₹${f.amount}</td><td class="hide-in-pdf"><button class="btn btn-sm btn-success rounded-pill px-3" onclick="payFine('${escapeHtml(f.transId)}')">Mark Paid</button></td></tr>`; });
+                tbody.innerHTML = html;
+            }).getFineDetails();
+        }
+        async function payFine(transId) {
+            const result=await Swal.fire({title:'Confirm payment?',text:'Ensure the amount is received.',icon:'question',showCancelButton:true,confirmButtonText:'Mark paid',showLoaderOnConfirm:true,preConfirm:async()=>{try{return await requestApi('markFineAsPaid',[transId]);}catch(error){Swal.showValidationMessage(error.message);return false;}},allowOutsideClick:()=>!Swal.isLoading()});
+            if(result.isConfirmed && result.value){loadFineDetails();showSuccess(result.value);}
+        }
+
+        async function checkIdEditBackend(button,label){
+            try{const capability=await requestApi('getCapabilities');if(!capability.editRecordIds)throw new Error('Backend update required');return true;}
+            catch(error){button.disabled=false;button.textContent=label;showError('ID editing requires the updated Code.gs to be deployed in Google Apps Script. Other edits still work.');return false;}
+        }
+        // PDF Download
+        let pdfExportBusy=false;
+        async function downloadPDF(elementId,fileName){
+            if(pdfExportBusy)return;pdfExportBusy=true;let root;
+            try{
+                if(typeof html2canvas!=='function'||!window.jspdf?.jsPDF)throw new Error('PDF libraries could not load. Check your internet connection and reload.');
+                Swal.fire({title:'Preparing PDF',text:'Loading records…',allowOutsideClick:false,allowEscapeKey:false,didOpen:()=>Swal.showLoading()});
+                let headers,rows;
+                if(elementId==='booksPrintArea'){
+                    const books=await requestApi('getAllBooks');
+                    headers=['Book ID','Book title','Author','Category','Rack','Total','Available'];
+                    rows=books.map(b=>[b.id,b.title,b.author,b.category,b.rack,b.total,b.available]);
+                }else if(elementId==='membersPrintArea'){
+                    const members=await requestApi('getAllMembers');headers=['Student ID','Name','Class / Department'];rows=members.map(m=>[m.id,m.name,m.className]);
+                }else{
+                    const source=document.getElementById(elementId),table=source?.querySelector('table');
+                    if(!table)throw new Error('No table is available to export.');
+                    const headerCells=[...table.querySelectorAll('thead tr:first-child th')];
+                    const indices=headerCells.map((cell,i)=>cell.classList.contains('hide-in-pdf')?-1:i).filter(i=>i>=0);
+                    headers=indices.map(i=>headerCells[i].textContent.trim());
+                    rows=[...table.querySelectorAll('tbody tr')].filter(row=>!row.hidden&&row.style.display!=='none').map(row=>indices.map(i=>row.cells[i]?.textContent.trim()||''));
+                }
+                if(!rows.length)throw new Error('No records to export.');
+                if(document.fonts?.ready)await document.fonts.ready;
+                const perPage=28,pages=Math.ceil(rows.length/perPage),pdf=new window.jspdf.jsPDF({orientation:'landscape',unit:'mm',format:'a4',compress:true});
+                root=document.createElement('div');root.className='pdf-export-root';root.style.cssText='position:fixed;left:0;top:0;width:1120px;background:white;z-index:-1;pointer-events:none;';document.body.append(root);
+                for(let page=0;page<pages;page++){
+                    Swal.update({text:'Page '+(page+1)+' of '+pages+' · '+rows.length+' records'});
+                    root.replaceChildren();
+                    const paper=document.createElement('div');paper.style.cssText='width:1120px;background:white;color:#111827;padding:24px 30px;font-family:Poppins,"Noto Sans Malayalam",sans-serif;';
+                    const heading=document.createElement('h2');heading.textContent="IQRA'A Library — "+fileName.replace(/_/g,' ');heading.style.cssText='font-size:17px;margin:0 0 4px;color:#075985;';paper.append(heading);
+                    const caption=document.createElement('p');caption.textContent=rows.length+' records · '+new Date().toLocaleDateString('en-IN')+' · Page '+(page+1)+' / '+pages;caption.style.cssText='font-size:10px;color:#64748b;margin:0 0 12px;';paper.append(caption);
+                    const table=document.createElement('table');table.style.cssText='width:100%;border-collapse:collapse;table-layout:fixed;font-size:10px;line-height:1.4;';
+                    const head=document.createElement('tr');headers.forEach((text,i)=>{const cell=document.createElement('th');cell.textContent=text;cell.style.cssText='text-align:left;background:#eaf4fb;border:1px solid #dce5ee;padding:7px 6px;';if(headers.length===7)cell.style.width=[10,31,19,18,6,7,9][i]+'%';head.append(cell);});table.append(head);
+                    rows.slice(page*perPage,(page+1)*perPage).forEach((values,index)=>{const tr=document.createElement('tr');values.forEach(value=>{const td=document.createElement('td');td.textContent=String(value??'');td.style.cssText='vertical-align:top;border:1px solid #e2e8f0;padding:5px 6px;overflow-wrap:anywhere;background:'+(index%2?'#f8fafc':'#fff')+';';tr.append(td);});table.append(tr);});paper.append(table);root.append(paper);
+                    const canvas=await html2canvas(paper,{scale:1.6,backgroundColor:'#fff',useCORS:true,logging:false,scrollX:0,scrollY:0,windowWidth:1200});
+                    const scale=Math.min(277/canvas.width,190/canvas.height),width=canvas.width*scale,height=canvas.height*scale;
+                    if(page)pdf.addPage();pdf.addImage(canvas.toDataURL('image/jpeg',.9),'JPEG',10,10,width,height,undefined,'FAST');canvas.width=1;canvas.height=1;
+                    await new Promise(resolve=>setTimeout(resolve,0));
+                }
+                pdf.save(fileName+'.pdf');Swal.close();
+            }catch(error){showError(error.message||'PDF download failed. Please try again.');}
+            finally{root?.remove();pdfExportBusy=false;}
+        }
+
+        // --- PWA Installation Logic ---
+        let deferredPrompt;
+
+        // Register Service Worker
+        if (!nativeRun && 'serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(reg => console.log('SW registered successfully:', reg.scope))
+                    .catch(err => console.error('SW registration failed:', err));
+            });
+        }
+
+        // Intercept browser installation prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+
+            // Show the install UI elements
+            const banner = document.getElementById('pwaInstallBanner');
+            const navItem = document.getElementById('installNavbarItem');
+            if (banner) banner.classList.remove('d-none');
+            if (navItem) navItem.classList.remove('d-none');
+        });
+
+        // Trigger PWA installation
+        function triggerPwaInstall() {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                    hideInstallUI();
+                } else {
+                    console.log('User dismissed the install prompt');
+                }
+                deferredPrompt = null;
+            });
+        }
+
+        function hideInstallUI() {
+            const banner = document.getElementById('pwaInstallBanner');
+            const navItem = document.getElementById('installNavbarItem');
+            if (banner) banner.classList.add('d-none');
+            if (navItem) navItem.classList.add('d-none');
+        }
+
+        // Hide install UI after successful installation
+        window.addEventListener('appinstalled', (evt) => {
+            console.log("IQRA'A Library app was successfully installed!");
+            hideInstallUI();
+            showSuccess("IQRA'A Library App വിജയകരമായി ഇൻസ്റ്റാൾ ചെയ്തു!");
+        });
+    </script>
+</body>
+
+</html>
